@@ -154,7 +154,7 @@ const Footer: React.FC = () => {
                 className="w-36 h-14 border-r-0 bg-white rounded-md border border-[#E9E9E9] overflow-hidden"
               >
                 <img
-                  src={`/footer-icons/icon${i}.jpg`} 
+                  src={`/footer-icons/icon${i}.jpg`}
                   alt={`icon-${i}`}
                   className="w-full h-full object-cover"
                 />
