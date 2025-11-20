@@ -26,5 +26,6 @@ export const initDB = async () => {
     console.log("DB initialized successfully");
   } catch (err) {
     console.error("DB Init Error:", err);
+    throw err;
   }
 };
