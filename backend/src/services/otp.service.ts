@@ -13,7 +13,7 @@ export const createOtp = async (email: string) => {
   return otp;
 };
 
-export const verifyOtp = async (email: string, otp: string) => {
+export const verifyOtpDB = async (email: string, otp: string) => {
   const result = await pool.query(
     "SELECT * FROM otp WHERE email=$1 AND otp=$2",
     [email, otp]
