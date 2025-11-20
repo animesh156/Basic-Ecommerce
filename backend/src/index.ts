@@ -1,6 +1,6 @@
 import express from "express";
 const app = express();
-import { initDB } from "./db/dbInit";
+import { testDBConnection } from "./config/db";
 import dotenv from "dotenv";
 import cors from "cors";
 import otpRoutes from "./routes/otp.routes";
@@ -28,8 +28,7 @@ const PORT = process.env.PORT || 5000;
 
 async function startServer() {
   try {
-    await initDB();
-    console.log("Databse connected");
+    await testDBConnection();
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
