@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import otpRoutes from "./routes/otp.routes";
 import orderRoutes from "./routes/order.routes";
+import productRoutes from "./routes/productRoutes";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 //Routes
 app.use("/api/otp", otpRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/product", productRoutes);
 
 // 404 handler
 app.use((req: express.Request, res: express.Response) => {
