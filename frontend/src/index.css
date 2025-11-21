@@ -2,5 +2,7 @@
 
 @theme {
   --font-poppins: Poppins, sans-serif;
+  --font-quicksand: Quicksand, sans-serif;
+  --font-lato: Lato, sans-serif;
    --font-arial: ["Arial", "Helvetica", "sans-serif"];
 }
