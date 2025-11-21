@@ -3,6 +3,7 @@ import Hero from "../components/hero/Hero";
 import DailyBestSell from "../components/products/DailyBestSell";
 import DealOfTheDay from "../components/products/DealOfTheDay";
 import FooterImg from "../components/footer/FooterImg";
+import FoodProducts from "../components/products/FoodProducts";
 
 const data = [
   {
@@ -46,6 +47,7 @@ export default function Home() {
       {/* Products Section */}
       <section className="py-10 space-y-5">
         <FeatureProducts />
+        <FoodProducts />
         <DailyBestSell />
         <DealOfTheDay />
       </section>

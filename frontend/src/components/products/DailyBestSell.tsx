@@ -65,8 +65,9 @@ const products = [
 
 export default function DailyBestSell() {
   return (
-    <div className="px-28">
-      <div className="flex justify-between ">
+    <div className="px-28 mt-5">
+
+      <div className="flex justify-between">
         <h3 className="text-[#253D4E] text-[22px] font-bold font-quicksand">
           Daily Best Sells
         </h3>
@@ -92,7 +93,7 @@ export default function DailyBestSell() {
         />
           {/* rest item cards */}
         {products.map((item) => (
-          <ItemCard key={item.id} {...item} />
+          <ItemCard type={""} key={item.id} {...item} />
         ))}
       </div>
     </div>

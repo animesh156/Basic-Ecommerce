@@ -6,8 +6,6 @@ export const getProducts = async (req: Request, res: Response) => {
     const result = await pool.query("SELECT * FROM products ORDER BY id ASC");
 
     return res.json({
-      success: true,
-      count: result.rowCount,
       data: result.rows,
     });
   } catch (error) {

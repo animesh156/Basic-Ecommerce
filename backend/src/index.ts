@@ -10,13 +10,18 @@ import productRoutes from "./routes/productRoutes";
 dotenv.config();
 
 //Middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 //Routes
 app.use("/api/otp", otpRoutes);
 app.use("/api/order", orderRoutes);
-app.use("/api/product", productRoutes);
+app.use("/api/products", productRoutes);
 
 // 404 handler
 app.use((req: express.Request, res: express.Response) => {

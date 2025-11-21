@@ -12,7 +12,7 @@ type ItemProps = {
   type: string;
 };
 
-export default function ItemCard({
+export default function ItemCard2({
   image,
   badgeText = "-20%",
   company,
@@ -24,7 +24,7 @@ export default function ItemCard({
   type,
 }: ItemProps) {
   return (
-    <div className="w-[200px] rounded-xl border border-gray-100 overflow-hidden bg-white ">
+    <div className="w-[200px] h-[300px] rounded-xl border border-gray-100 overflow-hidden bg-white ">
       {/* Image Section */}
       <div className="relative">
         <img
@@ -62,24 +62,22 @@ export default function ItemCard({
           <span className="text-[#B6B6B6]">By</span> {company}
         </p>
 
-        <div>
-          
-        </div>
+        <div className="flex items-center mt-5 justify-between">
+          {/* Pricing */}
+          <div className="space-x-2   font-quicksand">
+            <span className="text-[#3BB77E] text-[11px] font-bold ">
+              ${price}
+            </span>
+            <span className="text-[#ADADAD] text-[11px] font-bold text-sm line-through">
+              ${originalPrice}
+            </span>
+          </div>
 
-        {/* Pricing */}
-        <div className="space-x-2  font-quicksand">
-          <span className="text-[#3BB77E] text-[11px] font-bold ">
-            ${price}
-          </span>
-          <span className="text-[#ADADAD] text-[11px] font-bold text-sm line-through">
-            ${originalPrice}
-          </span>
+          {/* Add to Cart Button */}
+          <button className=" bg-[#F53E32] text-white py-1 px-3  text-[10px] font-semibold transition">
+            Add
+          </button>
         </div>
-
-        {/* Add to Cart Button */}
-        <button className="mt-9 w-full bg-[#F53E32] text-white py-2  text-[10px] font-semibold transition">
-          Add to Cart
-        </button>
       </div>
     </div>
   );
