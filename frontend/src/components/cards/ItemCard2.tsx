@@ -1,4 +1,5 @@
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 type ItemProps = {
   image: string;
@@ -10,6 +11,7 @@ type ItemProps = {
   rating: number;
   badgeColor: string;
   type: string;
+  id: number
 };
 
 export default function ItemCard2({
@@ -22,8 +24,10 @@ export default function ItemCard2({
   rating,
   badgeColor,
   type,
+  id
 }: ItemProps) {
   return (
+    <Link to={`/product/${id}`}>
     <div className="w-[200px] h-[300px] rounded-xl border border-gray-100 overflow-hidden bg-white ">
       {/* Image Section */}
       <div className="relative">
@@ -80,5 +84,7 @@ export default function ItemCard2({
         </div>
       </div>
     </div>
+    </Link>
+    
   );
 }
