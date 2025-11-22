@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import FeatureProducts from "../components/products/FeatureProducts";
 import Hero from "../components/hero/Hero";
 import DailyBestSell from "../components/products/DailyBestSell";
@@ -39,6 +40,11 @@ const data = [
 ];
 
 export default function Home() {
+
+   useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
   return (
     <div className="mt-2">
       {/* Hero Section */}

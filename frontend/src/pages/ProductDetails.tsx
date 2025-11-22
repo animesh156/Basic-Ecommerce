@@ -4,6 +4,7 @@ import Filters from "../components/filter/Filters";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import PopularProductCard from "../components/cards/PopularProductCard";
 import { useCartStore } from "../features/store/cartStore";
+import toast from "react-hot-toast";
 
 type Product = {
   id: number;
@@ -118,6 +119,7 @@ export default function ProductDetails() {
       quantity: quantity, // use selected quantity
       actualPrice: product.original_price,
     });
+    toast.success("Item added to Cart!")
     setQuantity(1);
     navigate("/checkout");
   };

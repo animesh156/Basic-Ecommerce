@@ -3,10 +3,14 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+      {/* Toaster must be OUTSIDE Routes */}
+      <Toaster position="top-right" />
+
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />

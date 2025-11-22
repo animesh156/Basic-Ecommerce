@@ -51,7 +51,7 @@ export const placeOrder = async (req: Request, res: Response) => {
       `INSERT INTO orders (email, items, amount)
        VALUES ($1, $2, $3)
        RETURNING id, email, items, amount, created_at`,
-      [email, sanitizedItems, amount]
+      [email, JSON.stringify(sanitizedItems), amount]
     );
 
     const order = result.rows[0];

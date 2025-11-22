@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCartStore } from "../features/store/cartStore";
 import { verifyOTP, sendOTP, placeOrders } from "../utils/api";
+import toast from "react-hot-toast";
 
 export default function Checkout() {
   const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState(0);
+  const [otp, setOtp] = useState("");
   // const [delivery, setDelivery] = useState("standard");
-  // const [payment, setPayment] = useState("cod");
+
   const [isVerified, setVerified] = useState(false);
 
   const location = useLocation(); // gives current route on which we are
 
+  const navigate = useNavigate();
+
   const currentRoute = location.pathname.substring(1); // remvoes first "/"
+
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+  
 
   // Zustand cart store
   const cartItems = useCartStore((state) => state.cart);
@@ -33,41 +41,46 @@ export default function Checkout() {
 
   const handleOrder = async () => {
     try {
-      const data = await placeOrders(email, sanitizedItems, Number(subtotal));
+      await placeOrders(email, sanitizedItems, Number(subtotal));
+      toast.success("Order placed successfully. Check your email!");
+      setEmail("");
+      setOtp("");
       clearCart();
-      console.log(data);
+      navigate("/");
     } catch (error) {
       console.error(error);
-    } finally {
-      console.log(cartItems);
-      console.log(email);
-      console.log(totalAmount);
+      toast.error("Error placing order, try again");
     }
   };
 
   const handleSendOtp = async () => {
-    if (!email) return;
+    if (!email) {
+      toast.error("Please enter Email");
+      return;
+    }
 
     try {
-      const data = await sendOTP(email);
-      console.log("OTP sent:", data);
+      await sendOTP(email);
+      toast.success("OTP sent to mail!");
     } catch (error) {
       console.error("Failed to send OTP:", error);
-    } finally {
-      console.log("email:", email);
+      toast.error("Error sending mail");
     }
   };
 
   const handleVerifyOTP = async () => {
-    if (!email || !otp) return;
+    if (!email || !otp) {
+      toast.error("Please give input & otp");
+      return;
+    }
 
     try {
-      const data = await verifyOTP(email, otp);
+      const data = await verifyOTP(email, Number(otp));
+      toast.success("OTP verified successfully!");
       setVerified(data.success);
-
-      console.log(data);
     } catch (error) {
       console.error("Failed to verify OTP:", error);
+      toast.error("Error verifying OTP");
     }
   };
 
@@ -349,9 +362,9 @@ export default function Checkout() {
                     OTP
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     value={otp}
-                    onChange={(e) => setOtp(Number(e.target.value))}
+                    onChange={(e) => setOtp(e.target.value)}
                     placeholder="Enter your OTP"
                     className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] w-full outline-none"
                   />
