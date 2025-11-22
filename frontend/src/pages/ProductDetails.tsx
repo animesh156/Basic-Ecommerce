@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Filters from "../components/filter/Filters";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import PopularProductCard from "../components/cards/PopularProductCard";
@@ -77,6 +77,10 @@ export default function ProductDetails() {
 
   const tabs = ["Description", "Information", "Review"];
 
+  const location = useLocation(); // gives current route on which we are
+
+  const currentRoute = location.pathname.split("/")[1]; // remvoes first "/"
+
   useEffect(() => {
     const cached = localStorage.getItem("products_cache");
 
@@ -103,90 +107,101 @@ export default function ProductDetails() {
     );
 
   return (
-    <div className="px-16 py-10">
-      <div className="flex gap-8">
-        {/* COLUMN 1 → FILTER */}
-        <div className="col-span-1">
-          <Filters />
+    <div>
+      <div className="bg-[#F53E32] py-4 flex justify-around  text-white">
+        {/* To make first char UpperCase */}
+        <h2>{currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}</h2>
+
+        <div>
+          <p>Home - {currentRoute}</p>
         </div>
+      </div>
 
-        {/* COLUMN 2 */}
-        <div className="flex-col">
-          <div className="flex justify-evenly space-x-20 space-y-6">
-            {/* PRODUCT IMAGE */}
-            <div className=" bg-[#F7F7F8] w-[460px]  p-6">
-              <img
-                src="/product/details/img1.jpg"
-                alt={product.name}
-                className="w-72"
-              />
-            </div>
+      {/* PRODUCT DETAILS */}
+      <div className="px-16 py-10">
+        <div className="flex gap-8">
+          {/* COLUMN 1 → FILTER */}
+          <div className="col-span-1">
+            <Filters />
+          </div>
 
-            {/* PRODUCT DETAILS */}
-            <div className=" flex flex-col p-5 max-w-[480px] justify-start">
-              <div className="border-b-[#E9E9E9] border-b py-5">
-                <h2 className="text-[19px] font-normal text-[#2B2B2D]">
-                  {product.name}
-                </h2>
-
-                <p className="text-sm text-gray-500 mt-2">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. In,
-                  iure minus error doloribus saepe natus?
-                </p>
+          {/* COLUMN 2 */}
+          <div className="flex-col">
+            <div className="flex justify-evenly space-x-20 space-y-6">
+              {/* PRODUCT IMAGE */}
+              <div className=" bg-[#F7F7F8] w-[460px]  p-6">
+                <img
+                  src="/product/details/img1.jpg"
+                  alt={product.name}
+                  className="w-72"
+                />
               </div>
 
-              {/* RATINGS */}
+              {/* PRODUCT DETAILS */}
+              <div className=" flex flex-col p-5 max-w-[480px] justify-start">
+                <div className="border-b-[#E9E9E9] border-b py-5">
+                  <h2 className="text-[19px] font-normal text-[#2B2B2D]">
+                    {product.name}
+                  </h2>
 
-              <div className="flex mt-5 items-center gap-2">
-                {[1, 2, 3, 4, 5].map((star) => {
-                  if (product.rating >= star) {
-                    return <FaStar key={star} className="text-[#F5885F]" />;
-                  } else if (product.rating >= star - 0.5) {
-                    return (
-                      <FaStarHalfAlt key={star} className="text-[#F5885F]" />
-                    );
-                  } else {
-                    return <FaRegStar key={star} className="text-gray-300" />;
-                  }
-                })}
+                  <p className="text-sm text-gray-500 mt-2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In,
+                    iure minus error doloribus saepe natus?
+                  </p>
+                </div>
 
-                <span className="text-sm text-[#7A7A7A] font-normal">
-                  ( 75 Review )
-                </span>
-              </div>
+                {/* RATINGS */}
 
-              {/* PRODUCT INFO */}
-              <ul className="space-y-1 mt-4">
-                {details.map((item) => (
-                  <li key={item.label} className="flex">
-                    <span className="w-32 font-medium">{item.label}</span>
-                    <span className="mr-2">:</span>
-                    <span className="text-[#777777]">{item.value}</span>
-                  </li>
-                ))}
-              </ul>
+                <div className="flex mt-5 items-center gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => {
+                    if (product.rating >= star) {
+                      return <FaStar key={star} className="text-[#F5885F]" />;
+                    } else if (product.rating >= star - 0.5) {
+                      return (
+                        <FaStarHalfAlt key={star} className="text-[#F5885F]" />
+                      );
+                    } else {
+                      return <FaRegStar key={star} className="text-gray-300" />;
+                    }
+                  })}
 
-              {/* PRICE SECTION */}
-              <div className="flex gap-1.5 mt-5">
-                <p className="text-[#F53E32] font-semibold text-[20px]">
-                  ${product.price}
-                </p>
-                <p className="mt-1.5 text-[#7A7A7A] line-through font-normal">
-                  ${product.original_price}
-                </p>
-              </div>
+                  <span className="text-sm text-[#7A7A7A] font-normal">
+                    ( 75 Review )
+                  </span>
+                </div>
 
-              <div className="mt-4 -ml-3 justify-evenly flex items-center">
-                <p className="text-[#2B2B2D] text-[18px] mb-0.5 font-medium ">
-                  Size/Weight :
-                </p>
+                {/* PRODUCT INFO */}
+                <ul className="space-y-1 mt-4">
+                  {details.map((item) => (
+                    <li key={item.label} className="flex">
+                      <span className="w-32 font-medium">{item.label}</span>
+                      <span className="mr-2">:</span>
+                      <span className="text-[#777777]">{item.value}</span>
+                    </li>
+                  ))}
+                </ul>
 
-                <div className="flex ml-2 gap-3">
-                  {sizes.map((item) => (
-                    <button
-                      key={item}
-                      onClick={() => setSelected(item)}
-                      className={`
+                {/* PRICE SECTION */}
+                <div className="flex gap-1.5 mt-5">
+                  <p className="text-[#F53E32] font-semibold text-[20px]">
+                    ${product.price}
+                  </p>
+                  <p className="mt-1.5 text-[#7A7A7A] line-through font-normal">
+                    ${product.original_price}
+                  </p>
+                </div>
+
+                <div className="mt-4 -ml-3 justify-evenly flex items-center">
+                  <p className="text-[#2B2B2D] text-[18px] mb-0.5 font-medium ">
+                    Size/Weight :
+                  </p>
+
+                  <div className="flex ml-2 gap-3">
+                    {sizes.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => setSelected(item)}
+                        className={`
               px-4 py-1 rounded-sm border text-sm cursor-pointer
               ${
                 selected === item
@@ -194,53 +209,53 @@ export default function ProductDetails() {
                   : "border-gray-300 text-[#777777]"
               }
             `}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Add CART Button */}
-              <div className="flex items-center gap-6 mt-6">
-                {/* Quantity Box */}
-                <div className="flex items-center gap-3">
-                  {/* Number Box */}
-                  <div className="w-12 h-12 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
-                    1
-                  </div>
-
-                  {/* Plus / Minus */}
-                  <div className="flex flex-col space-y-1 justify-between h-12">
-                    <button className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
-                      +
-                    </button>
-                    <button className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
-                      -
-                    </button>
+                      >
+                        {item}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* Add To Cart */}
-                <button className="bg-[#F53E32] text-white px-6 py-3 rounded-md text-md font-bold transition">
-                  Add To Cart
-                </button>
+                {/* Add CART Button */}
+                <div className="flex items-center gap-6 mt-6">
+                  {/* Quantity Box */}
+                  <div className="flex items-center gap-3">
+                    {/* Number Box */}
+                    <div className="w-12 h-12 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
+                      1
+                    </div>
+
+                    {/* Plus / Minus */}
+                    <div className="flex flex-col space-y-1 justify-between h-12">
+                      <button className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
+                        +
+                      </button>
+                      <button className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
+                        -
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Add To Cart */}
+                  <button className="bg-[#F53E32] text-white px-6 py-3 rounded-md text-md font-bold transition">
+                    Add To Cart
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* PROPDUCT INFO */}
-          <div className="border px-5  border-[#DEE2E6] rounded-md mt-6">
-            {/* Tabs Header */}
-            <div className="flex space-x-6 mt-5 border-b border-[#DEE2E6]">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className=" text-[15px] font-bold text-[#2B2B2D]"
-                >
-                  <span
-                    className={`
+            {/* PROPDUCT INFO */}
+            <div className="border px-5  border-[#DEE2E6] rounded-md mt-6">
+              {/* Tabs Header */}
+              <div className="flex space-x-6 mt-5 border-b border-[#DEE2E6]">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className=" text-[15px] font-bold text-[#2B2B2D]"
+                  >
+                    <span
+                      className={`
             inline-block pb-5
             ${
               activeTab === tab
@@ -248,66 +263,68 @@ export default function ProductDetails() {
                 : "text-[#2B2B2D]"
             }
           `}
-                  >
-                    {tab}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            {/* Tab Content */}
-            {activeTab && (
-              <div className="p-4 text-sm leading-relaxed text-[#555] space-y-4">
-                <p className="font-poppins">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-                  in vero sapiente odio, error dolore vero temporibus
-                  consequatur, nobis veniam odit dignissimos consectetur quae in
-                  perferendis doloribus debitis corporis, eaque dicta, repellat
-                  amet, illum adipisci vel perferendis dolor! Quis vel
-                  consequuntur repellat distinctio rem. Corrupti ratione alias
-                  odio, error dolore temporibus consequatur, nobis veniam odit
-                  laborum dignissimos consectetur quae vero in perferendis
-                  provident quis.
-                </p>
-
-                <h4 className="text-[#2B2B2D] text-[16px] font-semibold">
-                  Packaging & Delivery
-                </h4>
-
-                <hr className="border-[#DEE2E6]" />
-
-                <p className="font-poppins text-[14px]">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-                  in vero perferendis dolor! Quis vel consequuntur repellat
-                  distinctio rem. Corrupti ratione alias odio, error dolore
-                  temporibus consequatur, nobis veniam odit laborum dignissimos
-                  consectetur quae vero in perferendis provident quis.
-                </p>
+                    >
+                      {tab}
+                    </span>
+                  </button>
+                ))}
               </div>
-            )}
+
+              {/* Tab Content */}
+              {activeTab && (
+                <div className="p-4 text-sm leading-relaxed text-[#555] space-y-4">
+                  <p className="font-poppins">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Error in vero sapiente odio, error dolore vero temporibus
+                    consequatur, nobis veniam odit dignissimos consectetur quae
+                    in perferendis doloribus debitis corporis, eaque dicta,
+                    repellat amet, illum adipisci vel perferendis dolor! Quis
+                    vel consequuntur repellat distinctio rem. Corrupti ratione
+                    alias odio, error dolore temporibus consequatur, nobis
+                    veniam odit laborum dignissimos consectetur quae vero in
+                    perferendis provident quis.
+                  </p>
+
+                  <h4 className="text-[#2B2B2D] text-[16px] font-semibold">
+                    Packaging & Delivery
+                  </h4>
+
+                  <hr className="border-[#DEE2E6]" />
+
+                  <p className="font-poppins text-[14px]">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Error in vero perferendis dolor! Quis vel consequuntur
+                    repellat distinctio rem. Corrupti ratione alias odio, error
+                    dolore temporibus consequatur, nobis veniam odit laborum
+                    dignissimos consectetur quae vero in perferendis provident
+                    quis.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* POPULAR PRODUCTS */}
-      <div className="mt-16 px-12">
-        <div className="w-[480px] m-auto ">
-          <h2 className="text-[#2B2B2D] text-center font-bold text-[28px]">
-            Popular Products
-          </h2>
+        {/* POPULAR PRODUCTS */}
+        <div className="mt-16 px-12">
+          <div className="w-[480px] m-auto ">
+            <h2 className="text-[#2B2B2D] text-center font-bold text-[28px]">
+              Popular Products
+            </h2>
 
-          <p className="text-[#7A7A7A] font-poppins text-[12px] text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et viverra maecenas accumsan
-            lacus vel facilisis.
-          </p>
-        </div>
+            <p className="text-[#7A7A7A] font-poppins text-[12px] text-center">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et viverra maecenas accumsan
+              lacus vel facilisis.
+            </p>
+          </div>
 
-        {/* CARDS POPULAR */}
-        <div className="grid grid-cols-4 gap-2 mt-6">
-          {popularProducts.map((item) => (
-            <PopularProductCard key={item.id} {...item} />
-          ))}
+          {/* CARDS POPULAR */}
+          <div className="grid grid-cols-4 gap-2 mt-6">
+            {popularProducts.map((item) => (
+              <PopularProductCard key={item.id} {...item} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
