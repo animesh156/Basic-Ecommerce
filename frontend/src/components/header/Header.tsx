@@ -20,12 +20,12 @@ export default function Header() {
   ];
 
   return (
-    <nav className="w-full shadow-md">
+    <nav className="w-full">
       {/* ------------------------ ROW 1 (Navbar Component) ------------------------ */}
       <Navbar topLinks={topLinks} />
 
       {/* ------------------------ ROW 2 ------------------------ */}
-      <div className="flex items-center justify-between px-36 py-4 bg-white">
+      <div className="flex items-center justify-between px-36 border-b border-b-[#E9E9E9] py-2 bg-white">
         <div className="flex items-center space-x-11">
           {/* Logo */}
           <div className="flex items-center">

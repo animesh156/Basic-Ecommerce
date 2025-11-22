@@ -97,6 +97,10 @@ export default function ProductDetails() {
     setLoading(false);
   }, [id]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (loading) return <ProductSkeleton />;
 
   if (!product)
@@ -128,18 +132,19 @@ export default function ProductDetails() {
           {/* COLUMN 2 */}
           <div className="flex-col">
             <div className="flex justify-evenly space-x-20 space-y-6">
-              {/* PRODUCT IMAGE */}
-              <div className=" bg-[#F7F7F8] w-[460px]  p-6">
+
+              {/* COL 1 - PRODUCT IMAGE */}
+              <div className="bg-[#F7F7F8] w-[460px] h-[510px] border border-[#E9E9E9] flex items-center justify-center p-6 rounded-md">
                 <img
-                  src="/product/details/img1.jpg"
+                  src={product.image}
                   alt={product.name}
-                  className="w-72"
+                  className="w-96 object-contain mix-blend-multiply"
                 />
               </div>
 
-              {/* PRODUCT DETAILS */}
-              <div className=" flex flex-col p-5 max-w-[480px] justify-start">
-                <div className="border-b-[#E9E9E9] border-b py-5">
+              {/* COL 2 - PRODUCT DETAILS */}
+              <div className="-mt-4 flex flex-col  max-w-[480px]">
+                <div className="border-b-[#E9E9E9] border-b py-4.5">
                   <h2 className="text-[19px] font-normal text-[#2B2B2D]">
                     {product.name}
                   </h2>
@@ -191,24 +196,24 @@ export default function ProductDetails() {
                   </p>
                 </div>
 
-                <div className="mt-4 -ml-3 justify-evenly flex items-center">
-                  <p className="text-[#2B2B2D] text-[18px] mb-0.5 font-medium ">
-                    Size/Weight :
-                  </p>
+                {/* SIZE/ WEIGHT */}
+                <div className="mt-4 flex items-center">
+                  <span className="w-32 font-medium text-[#2B2B2D] text-[18px]">
+                    Size/Weight
+                  </span>
+                  <span className="mr-2">:</span>
 
-                  <div className="flex ml-2 gap-3">
+                  <div className="flex gap-3">
                     {sizes.map((item) => (
                       <button
                         key={item}
                         onClick={() => setSelected(item)}
-                        className={`
-              px-4 py-1 rounded-sm border text-sm cursor-pointer
-              ${
-                selected === item
-                  ? "border-[#F53E32] bg-[#F53E32] text-white"
-                  : "border-gray-300 text-[#777777]"
-              }
-            `}
+                        className={`px-4 py-1 rounded-sm border text-sm cursor-pointer
+          ${
+            selected === item
+              ? "border-[#F53E32] bg-[#F53E32] text-white"
+              : "border-gray-300 text-[#777777]"
+          }`}
                       >
                         {item}
                       </button>
@@ -237,7 +242,7 @@ export default function ProductDetails() {
                   </div>
 
                   {/* Add To Cart */}
-                  <button className="bg-[#F53E32] text-white px-6 py-3 rounded-md text-md font-bold transition">
+                  <button className="bg-[#F53E32] text-white px-6 py-2.5 rounded-md text-md font-bold transition">
                     Add To Cart
                   </button>
                 </div>

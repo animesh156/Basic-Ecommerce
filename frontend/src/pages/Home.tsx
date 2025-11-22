@@ -40,7 +40,7 @@ const data = [
 
 export default function Home() {
   return (
-    <>
+    <div className="mt-2">
       {/* Hero Section */}
       <Hero />
 
@@ -75,6 +75,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }

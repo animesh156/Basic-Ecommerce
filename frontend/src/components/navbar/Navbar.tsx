@@ -13,7 +13,7 @@ type NavbarProps = {
 
 export default function Navbar({ topLinks }: NavbarProps) {
   return (
-    <div className="flex items-center justify-around  py-3 shadow-sm border-b border-[#e7dede]">
+    <div className="flex items-center justify-around py-3 shadow-md border-b border-b-[#e7dede]">
       <div className="border p-2 rounded-sm  border-[#E9E9E9] h-8 w-8">
         <img src="/header/icon.png" />
       </div>

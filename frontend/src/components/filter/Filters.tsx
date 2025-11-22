@@ -38,13 +38,13 @@ export default function Filters() {
             return (
               <label
                 key={cat}
-                className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center mt-2.5 gap-2 cursor-pointer"
               >
                 <input
                   type="checkbox"
                   checked={checked}
                   onChange={() => toggleCategory(cat)}
-                  className="w-4 h-4 border-[#DDDDDD] accent-[#3BB77E]"
+                  className="w-4 h-4 border-[#DDDDDD] border accent-[#3BB77E]"
                 />
 
                 <span
@@ -139,6 +139,9 @@ export default function Filters() {
           </span>
         </p>
       </div>
+
+      {/* FILTER BUTTON */}
+      <button className="bg-[#F53E32] font-normal text-[14px] px-5 py-2 text-white">Filter</button>
 
       {/* PRODUCT TAGS */}
       <div>
