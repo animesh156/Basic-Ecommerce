@@ -12,14 +12,18 @@ dotenv.config();
 //Middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? process.env.FRONTEND_URL_PROD
+        : process.env.FRONTEND_URL_DEV,
     credentials: true,
   })
 );
+
 app.use(express.json());
 
 //Routes
-app.use("/api/otp", otpRoutes);  
+app.use("/api/otp", otpRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/products", productRoutes);
 
