@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Filters from "../components/filter/Filters";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import PopularProductCard from "../components/cards/PopularProductCard";
+import { useCartStore } from "../features/store/cartStore";
 
 type Product = {
   id: number;
@@ -16,6 +17,7 @@ type Product = {
   badge_color: string;
   type: string;
   description?: string;
+  quantity: number;
 };
 
 const popularProducts = [
@@ -72,6 +74,11 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState("");
   const [activeTab, setActiveTab] = useState("Description");
+  const [quantity, setQuantity] = useState(1);
+
+  const addToCart = useCartStore((state) => state.addToCart);
+
+  const navigate = useNavigate();
 
   const sizes = ["50kg", "80kg", "120kg", "200kg"];
 
@@ -100,6 +107,20 @@ export default function ProductDetails() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleCart = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      rating: product.rating,
+      quantity: quantity, // use selected quantity
+      actualPrice: product.original_price,
+    });
+    setQuantity(1);
+    navigate("/checkout");
+  };
 
   if (loading) return <ProductSkeleton />;
 
@@ -132,7 +153,6 @@ export default function ProductDetails() {
           {/* COLUMN 2 */}
           <div className="flex-col">
             <div className="flex justify-evenly space-x-20 space-y-6">
-
               {/* COL 1 - PRODUCT IMAGE */}
               <div className="bg-[#F7F7F8] w-[460px] h-[510px] border border-[#E9E9E9] flex items-center justify-center p-6 rounded-md">
                 <img
@@ -227,22 +247,33 @@ export default function ProductDetails() {
                   <div className="flex items-center gap-3">
                     {/* Number Box */}
                     <div className="w-12 h-12 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
-                      1
+                      {quantity}
                     </div>
 
                     {/* Plus / Minus */}
                     <div className="flex flex-col space-y-1 justify-between h-12">
-                      <button className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
+                      <button
+                        className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center"
+                        onClick={() => setQuantity((prev) => prev + 1)}
+                      >
                         +
                       </button>
-                      <button className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center">
+                      <button
+                        className="w-5 h-5 border border-[#E9E9E9] rounded-sm flex items-center justify-center"
+                        onClick={() =>
+                          setQuantity((prev) => Math.max(1, prev - 1))
+                        }
+                      >
                         -
                       </button>
                     </div>
                   </div>
 
                   {/* Add To Cart */}
-                  <button className="bg-[#F53E32] text-white px-6 py-2.5 rounded-md text-md font-bold transition">
+                  <button
+                    className="bg-[#F53E32] cursor-pointer text-white px-6 py-2.5 rounded-md text-md font-bold transition"
+                    onClick={() => handleCart(product)}
+                  >
                     Add To Cart
                   </button>
                 </div>

@@ -1,42 +1,81 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useLocation } from "react-router-dom";
-
-const cartItems = [
-  {
-    id: 1,
-    rating: 4,
-    title: "Dates Value Pack Pouch",
-    price: 120.25,
-    actualPrice: 123.25,
-    image: "/checkout/img1.jpg",
-  },
-  {
-    id: 2,
-    rating: 4,
-    title: "Smoked Honey Spiced Nuts",
-    price: 120.25,
-    actualPrice: 123.25,
-    image: "/checkout/img2.jpg",
-  },
-];
+import { useCartStore } from "../features/store/cartStore";
+import { verifyOTP, sendOTP, placeOrders } from "../utils/api";
 
 export default function Checkout() {
-  // const [email, setEmail] = useState("");
-  // const [otp, setOtp] = useState("");
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState(0);
   // const [delivery, setDelivery] = useState("standard");
   // const [payment, setPayment] = useState("cod");
+  const [isVerified, setVerified] = useState(false);
 
   const location = useLocation(); // gives current route on which we are
 
   const currentRoute = location.pathname.substring(1); // remvoes first "/"
+
+  // Zustand cart store
+  const cartItems = useCartStore((state) => state.cart);
+  const subtotal = useCartStore((state) => state.subtotal)();
+  const clearCart = useCartStore((state) => state.clearCart);
+
+  const sanitizedItems = cartItems.map((item) => ({
+    ...item,
+    price: Number(item.price),
+    actualPrice: Number(item.actualPrice),
+    rating: Number(item.rating),
+    quantity: Number(item.quantity),
+  }));
+
+  const deliveryCharge = subtotal > 0 ? 5 : 0; // example
+  const totalAmount = subtotal + deliveryCharge;
+
+  const handleOrder = async () => {
+    try {
+      const data = await placeOrders(email, sanitizedItems, Number(subtotal));
+      clearCart();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      console.log(cartItems);
+      console.log(email);
+      console.log(totalAmount);
+    }
+  };
+
+  const handleSendOtp = async () => {
+    if (!email) return;
+
+    try {
+      const data = await sendOTP(email);
+      console.log("OTP sent:", data);
+    } catch (error) {
+      console.error("Failed to send OTP:", error);
+    } finally {
+      console.log("email:", email);
+    }
+  };
+
+  const handleVerifyOTP = async () => {
+    if (!email || !otp) return;
+
+    try {
+      const data = await verifyOTP(email, otp);
+      setVerified(data.success);
+
+      console.log(data);
+    } catch (error) {
+      console.error("Failed to verify OTP:", error);
+    }
+  };
 
   return (
     <div>
       {/* RED DIV CONTAINS INFO ABOUT ROUTE INFO FROM HOME TO CURRENT ROUTE */}
 
       <div className="bg-[#F53E32] py-4 flex justify-around text-white">
-
         {/* To make first char UpperCase */}
         <h2>{currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}</h2>
 
@@ -57,16 +96,21 @@ export default function Checkout() {
               </h3>
               <div className="flex mt-2.5 justify-between text-sm text-[#7A7A7A]">
                 <span>Sub-Total</span>
-                <span className="font-semibold text-black">$80.00</span>
+                <span className="font-semibold text-black">
+                  ${subtotal.toFixed(2)}
+                </span>
               </div>
               <div className="flex justify-between text-sm text-[#7A7A7A]">
                 <span>Delivery Charges</span>
-                <span className="font-semibold text-black">$80.00</span>
+                <span className="font-semibold text-black">
+                  {" "}
+                  ${deliveryCharge.toFixed(2)}
+                </span>
               </div>
               <hr className="my-2 text-[#E9E9E9]" />
               <div className="flex justify-between mt-1 text-[14px] font-semibold">
                 <span className="text-[#2B2B2D]">Total Amount</span>
-                <span>$80.00</span>
+                <span>${totalAmount.toFixed(2)}</span>
               </div>
 
               {/* CART ITEMS */}
@@ -79,7 +123,7 @@ export default function Checkout() {
                     </div>
 
                     <div className="flex-col space-y-3.5">
-                      <h3 className="text-[14px] font-normal">{item.title}</h3>
+                      <h3 className="text-[14px] font-normal">{item.name}</h3>
 
                       {/* ⭐ Rating Stars */}
                       <div className="flex items-center mt-1">
@@ -100,7 +144,7 @@ export default function Checkout() {
 
                       {/* Price */}
                       <p className="font-poppins text-[14px] font-semibold text-[#64B496]">
-                        ${item.price}
+                        ${(item.price * item.quantity).toFixed(2)}
                         <span className="ml-2 line-through text-[#7A7A7A] font-normal text-[12px]">
                           ${item.actualPrice}
                         </span>
@@ -292,6 +336,9 @@ export default function Checkout() {
                   <input
                     type="email"
                     placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onBlur={handleSendOtp} // 🔥 Trigger OTP API when user leaves input
                     className="mt-1 border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none"
                   />
                 </div>
@@ -302,7 +349,9 @@ export default function Checkout() {
                     OTP
                   </label>
                   <input
-                    type="text"
+                    type="number"
+                    value={otp}
+                    onChange={(e) => setOtp(Number(e.target.value))}
                     placeholder="Enter your OTP"
                     className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] w-full outline-none"
                   />
@@ -310,7 +359,10 @@ export default function Checkout() {
 
                 {/* VERIFY BUTTON */}
                 <div className="flex justify-center mt-5">
-                  <button className="bg-[#F53E32] text-white text-[10px] font-bold text-center px-6 py-2 rounded-sm hover:bg-red-600">
+                  <button
+                    className="bg-[#F53E32] cursor-pointer text-white text-[10px] font-bold text-center px-6 py-2 rounded-sm hover:bg-red-600"
+                    onClick={handleVerifyOTP}
+                  >
                     Verify
                   </button>
                 </div>
@@ -441,7 +493,16 @@ export default function Checkout() {
             <div className="flex justify-end mt-2">
               <button
                 type="submit"
-                className="bg-[#F53E32] text-white text-[9px] font-bold text-center px-5 py-2 rounded-sm "
+                onClick={handleOrder}
+                disabled={!isVerified}
+                className={`
+    text-white text-[9px] cursor-pointer font-bold text-center px-5 py-2 rounded-sm
+    ${
+      isVerified
+        ? "bg-[#F53E32] hover:bg-red-600"
+        : "bg-gray-400 cursor-not-allowed"
+    }
+  `}
               >
                 Place Order
               </button>

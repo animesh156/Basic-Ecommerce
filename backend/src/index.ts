@@ -19,7 +19,7 @@ app.use(
 app.use(express.json());
 
 //Routes
-app.use("/api/otp", otpRoutes);
+app.use("/api/otp", otpRoutes);  
 app.use("/api/order", orderRoutes);
 app.use("/api/products", productRoutes);
 
