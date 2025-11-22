@@ -1,0 +1,454 @@
+// import { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
+import { useLocation } from "react-router-dom";
+
+const cartItems = [
+  {
+    id: 1,
+    rating: 4,
+    title: "Dates Value Pack Pouch",
+    price: 120.25,
+    actualPrice: 123.25,
+    image: "/checkout/img1.jpg",
+  },
+  {
+    id: 2,
+    rating: 4,
+    title: "Smoked Honey Spiced Nuts",
+    price: 120.25,
+    actualPrice: 123.25,
+    image: "/checkout/img2.jpg",
+  },
+];
+
+export default function Checkout() {
+  // const [email, setEmail] = useState("");
+  // const [otp, setOtp] = useState("");
+  // const [delivery, setDelivery] = useState("standard");
+  // const [payment, setPayment] = useState("cod");
+
+  const location = useLocation(); // gives current route on which we are
+
+  const currentRoute = location.pathname.substring(1); // remvoes first "/"
+
+  return (
+    <div>
+      {/* RED DIV CONTAINS INFO ABOUT ROUTE INFO FROM HOME TO CURRENT ROUTE */}
+
+      <div className="bg-[#F53E32] py-4 flex justify-around text-white">
+
+        {/* To make first char UpperCase */}
+        <h2>{currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}</h2>
+
+        <div>
+          <p>Home - {currentRoute}</p>
+        </div>
+      </div>
+
+      <div className="px-80 py-10">
+        {/* ROW 1 - TWO COLUMNS */}
+        <div className="grid grid-cols-1 md:grid-cols-2  mb-10">
+          {/* COLUMN 1 - SUBTOTAL + DELIVERY + PAYMENT */}
+          <div className=" space-y-5">
+            {/* SUBTOTAL BOX */}
+            <div className="bg-white w-80  p-6 rounded-sm  border border-[#E9E9E9]">
+              <h3 className="text-[16px] -mt-4 font-semibold text-[#000000]">
+                Summary
+              </h3>
+              <div className="flex mt-2.5 justify-between text-sm text-[#7A7A7A]">
+                <span>Sub-Total</span>
+                <span className="font-semibold text-black">$80.00</span>
+              </div>
+              <div className="flex justify-between text-sm text-[#7A7A7A]">
+                <span>Delivery Charges</span>
+                <span className="font-semibold text-black">$80.00</span>
+              </div>
+              <hr className="my-2 text-[#E9E9E9]" />
+              <div className="flex justify-between mt-1 text-[14px] font-semibold">
+                <span className="text-[#2B2B2D]">Total Amount</span>
+                <span>$80.00</span>
+              </div>
+
+              {/* CART ITEMS */}
+
+              <ul className="mt-6">
+                {cartItems.map((item) => (
+                  <li key={item.id} className="flex space-y-3 space-x-8">
+                    <div>
+                      <img src={item.image} className="w-20" />
+                    </div>
+
+                    <div className="flex-col space-y-3.5">
+                      <h3 className="text-[14px] font-normal">{item.title}</h3>
+
+                      {/* ⭐ Rating Stars */}
+                      <div className="flex items-center mt-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg
+                            key={star}
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            className="w-2.5 h-2.5 mr-1"
+                            fill={star <= item.rating ? "#F4A263" : "white"} // filled or empty
+                            stroke="#F4A263" // orange outline
+                            strokeWidth="1.5"
+                          >
+                            <path d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.782 1.402 8.173L12 18.896l-7.336 3.87 1.402-8.173L.132 9.211l8.2-1.193z" />
+                          </svg>
+                        ))}
+                      </div>
+
+                      {/* Price */}
+                      <p className="font-poppins text-[14px] font-semibold text-[#64B496]">
+                        ${item.price}
+                        <span className="ml-2 line-through text-[#7A7A7A] font-normal text-[12px]">
+                          ${item.actualPrice}
+                        </span>
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* DELIVERY METHOD */}
+            <div className="bg-white w-80 p-4 rounded-sm border border-[#E9E9E9] space-y-4">
+              <h3 className="font-semibold text-[15px]">Delivery Method</h3>
+
+              <p className="text-[#7A7A7A] font-normal text-[12px]">
+                Please select the preferred shipping method for this order.
+              </p>
+
+              {/* OPTIONS */}
+              <div className="flex -mt-2 gap-14">
+                {/* OPTION 1 – FREE SHIPPING */}
+                <label className="flex-col items-center justify-between cursor-pointer">
+                  <span className="text-[12px] font-normal text-[#2B2B2D]">
+                    Free Shipping
+                  </span>
+
+                  <div className="relative flex gap-2">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      value="free"
+                      className="peer absolute w-full h-full opacity-0 cursor-pointer"
+                    />
+
+                    {/* Outer Circle */}
+                    <div className="w-4 h-4 rounded-full border border-[#DDDDDD] peer-checked:border-[#F53E32]"></div>
+
+                    {/* Inner Dot */}
+                    <div
+                      className="absolute top-2 left-2 w-2 h-2 bg-red-500 rounded-full
+          -translate-x-1/2 -translate-y-1/2 
+          scale-0 peer-checked:scale-100 transition-all"
+                    ></div>
+
+                    <p className="text-[11px] text-[#7A7A7A]">Rate - $0 .00</p>
+                  </div>
+                </label>
+
+                {/* OPTION 2 – FLAT RATE */}
+                <label className="flex-col items-center justify-between cursor-pointer">
+                  <span className="text-[12px] font-normal text-[#2B2B2D]">
+                    Flat Rate
+                  </span>
+
+                  <div className="relative flex gap-2">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      value="free"
+                      className="peer absolute w-full h-full opacity-0 cursor-pointer"
+                    />
+
+                    {/* Outer Circle */}
+                    <div className="w-4 h-4 rounded-full border border-[#DDDDDD] peer-checked:border-[#F53E32]"></div>
+
+                    {/* Inner Dot */}
+                    <div
+                      className="absolute top-2 left-2 w-2 h-2 bg-red-500 rounded-full
+          -translate-x-1/2 -translate-y-1/2 
+          scale-0 peer-checked:scale-100 transition-all"
+                    ></div>
+
+                    <p className="text-[11px] text-[#7A7A7A]">Rate - $5.00</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* PAYMENT METHOD */}
+
+            <div className="bg-white w-80 p-4 rounded-sm border border-[#E9E9E9] space-y-4">
+              <h3 className="font-semibold text-[15px]">Payment Method</h3>
+
+              <p className="text-[#7A7A7A] font-normal text-[12px]">
+                Please select the preferred payment method to use on this order.
+              </p>
+
+              {/* OPTIONS */}
+              <div className="flex flex-col space-y-4 -mt-2">
+                {/* OPTION 1 – Cash On Delivery */}
+                <label className="flex items-center cursor-pointer">
+                  <div className="relative flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      value="cod"
+                      className="peer absolute w-4 h-4 opacity-0 cursor-pointer"
+                    />
+
+                    {/* Outer Circle */}
+                    <div className="w-4 h-4 rounded-full border border-[#DDDDDD] peer-checked:border-[#F53E32]"></div>
+
+                    {/* Inner Dot */}
+                    <div
+                      className="absolute top-1/2 left-2 w-2 h-2 bg-[#F53E32] rounded-full
+        -translate-x-1/2 -translate-y-1/2 
+        scale-0 peer-checked:scale-100 transition-all"
+                    ></div>
+
+                    <p className="text-[11px] text-[#7A7A7A]">
+                      Cash On Delivery
+                    </p>
+                  </div>
+                </label>
+
+                {/* OPTION 2 – UPI */}
+                <label className="flex items-center cursor-pointer">
+                  <div className="relative flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      value="upi"
+                      className="peer absolute w-4 h-4 opacity-0 cursor-pointer"
+                    />
+
+                    {/* Outer Circle */}
+                    <div className="w-4 h-4 rounded-full border border-[#DDDDDD] peer-checked:border-[#F53E32]"></div>
+
+                    {/* Inner Dot */}
+                    <div
+                      className="absolute top-1/2 left-2 w-2 h-2 bg-[#F53E32] rounded-full
+        -translate-x-1/2 -translate-y-1/2 
+        scale-0 peer-checked:scale-100 transition-all"
+                    ></div>
+
+                    <p className="text-[11px] text-[#7A7A7A]">UPI</p>
+                  </div>
+                </label>
+
+                {/* OPTION 3 – Bank Transfer */}
+                <label className="flex items-center cursor-pointer">
+                  <div className="relative flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="delivery"
+                      value="bank"
+                      className="peer absolute w-4 h-4 opacity-0 cursor-pointer"
+                    />
+
+                    {/* Outer Circle */}
+                    <div className="w-4 h-4 rounded-full border border-[#DDDDDD] peer-checked:border-[#F53E32]"></div>
+
+                    {/* Inner Dot */}
+                    <div
+                      className="absolute top-1/2 left-2 w-2 h-2 bg-[#F53E32] rounded-full
+        -translate-x-1/2 -translate-y-1/2 
+        scale-0 peer-checked:scale-100 transition-all"
+                    ></div>
+
+                    <p className="text-[11px] text-[#7A7A7A]">Bank Transfer</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* CARD PAYMENT METHOD */}
+            <div className="bg-white w-80 p-4 rounded-sm border border-[#E9E9E9] space-y-4">
+              <h3 className="font-semibold text-[15px]">Payment Method</h3>
+              <img src="/checkout/card-payment.png" />
+            </div>
+          </div>
+
+          {/* COLUMN 2 - CUSTOMER DETAILS & BILLING DETAILS */}
+          <div className="space-y-4">
+            {/* CUSTOMER DETAILS */}
+            <div className="border text-[#2B2B2D] w-[490px] font-semibold border-[#E9E9E9] h-[370px] space-y-3.5 p-4">
+              <h3>Customer</h3>
+              <p className="text-[10px] font-normal">Checkout Options</p>
+
+              <h3>Returning Customer</h3>
+
+              {/* EMAIL & OTP */}
+              <div className="mt-3 space-y-3">
+                {/* EMAIL FIELD */}
+                <div className="flex flex-col">
+                  <label className="text-[11px] font-medium text-[#4A4A4A]">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="mt-1 border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none"
+                  />
+                </div>
+
+                {/* OTP FIELD WITH BUTTON */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[11px] font-medium text-[#4A4A4A]">
+                    OTP
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your OTP"
+                    className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] w-full outline-none"
+                  />
+                </div>
+
+                {/* VERIFY BUTTON */}
+                <div className="flex justify-center mt-5">
+                  <button className="bg-[#F53E32] text-white text-[10px] font-bold text-center px-6 py-2 rounded-sm hover:bg-red-600">
+                    Verify
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* BILLING DETAILS */}
+            <div className="border  text-[#2B2B2D] w-[490px] font-semibold border-[#E9E9E9] h-[422px] space-y-3.5 p-4">
+              <h3>Billing Details</h3>
+              <p className="text-[10px] font-normal">Checkout Options</p>
+
+              <h3>Returning Customer</h3>
+
+              {/* NAME & ADDRESS */}
+              <div className="mt-3 space-y-3">
+                {/* FIRST & SECOND NAME FIELD */}
+                <div className="flex gap-3">
+                  {/* First Name */}
+                  <div className="flex flex-col w-1/2">
+                    <label className="text-[11px] font-medium text-[#4A4A4A]">
+                      First Name <span>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none"
+                    />
+                  </div>
+
+                  {/* Last Name */}
+                  <div className="flex flex-col w-1/2">
+                    <label className="text-[11px] font-medium text-[#4A4A4A]">
+                      Last Name <span>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* ADDRESS FIELD WITH BUTTON */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[11px] font-medium text-[#4A4A4A]">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Address Line 1"
+                    className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] w-full outline-none"
+                  />
+                </div>
+
+                {/* CITY & POST CODE */}
+                <div className="flex gap-3">
+                  {/* CITY */}
+                  <div className="flex flex-col w-1/2">
+                    <label className="text-[11px] font-medium text-[#4A4A4A]">
+                      City <span>*</span>
+                    </label>
+
+                    <div className="relative mt-1">
+                      <input
+                        type="text"
+                        placeholder="City"
+                        className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none w-full"
+                      />
+
+                      {/* Down Arrow */}
+                      <span className="absolute right-2 top-1/2 font-bold -translate-y-1/2 text-[#7A7A7A]">
+                        <IoIosArrowDown />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Last Name */}
+                  <div className="flex flex-col w-1/2">
+                    <label className="text-[11px] font-medium text-[#4A4A4A]">
+                      Post Code
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Post Code"
+                      className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none"
+                    />
+                  </div>
+                </div>
+
+                {/* COUNTRY & REGIONAL STATE */}
+                <div className="flex gap-3">
+                  {/* COUNTRY */}
+                  <div className="flex flex-col w-1/2">
+                    <label className="text-[11px] font-medium text-[#4A4A4A]">
+                      Country <span>*</span>
+                    </label>
+
+                    <div className="relative mt-1">
+                      <input
+                        type="text"
+                        placeholder="Country"
+                        className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none w-full"
+                      />
+
+                      {/* Down Arrow */}
+                      <span className="absolute right-2 top-1/2 font-bold -translate-y-1/2 text-[#7A7A7A]">
+                        <IoIosArrowDown />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Last Name */}
+                  <div className="flex flex-col w-1/2">
+                    <label className="text-[11px] font-medium text-[#4A4A4A]">
+                      Region State
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Region/State"
+                      className="border border-[#E9E9E9] rounded-sm p-2 text-[12px] outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* SUBMIT BUTTON */}
+            <div className="flex justify-end mt-2">
+              <button
+                type="submit"
+                className="bg-[#F53E32] text-white text-[9px] font-bold text-center px-5 py-2 rounded-sm "
+              >
+                Place Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
