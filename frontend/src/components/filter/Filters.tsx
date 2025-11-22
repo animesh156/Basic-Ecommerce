@@ -60,7 +60,6 @@ export default function Filters() {
         </div>
       </div>
 
-      
       {/* PRICE SLIDER */}
       <div>
         <h3 className="text-[14px] font-semibold text-[#253D4E] mb-2">
@@ -151,7 +150,7 @@ export default function Filters() {
           {tags.map((tag) => (
             <button
               key={tag}
-              className="px-3 py-1 bg-white rounded-lg text-sm text-gray-700  hover:text-white transition"
+              className="px-3 py-1 bg-white rounded-lg text-sm text-gray-700  "
             >
               {tag}
             </button>
