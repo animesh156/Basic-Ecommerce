@@ -18,8 +18,8 @@ const dummyProduct: Product[] = [
 
 const products = [
   {
-    id: 1,
-    image: "/product/bestsell/coconut.jpg",
+    id: 11,
+    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763730373/5e54ca86f58be985a7ea1082b7da9261aef20407_j1cryh.jpg",
     company: "Hodo Foods",
     name: "All Natural Italian-Style Chicken Meatballs",
     price: 238.85,
@@ -29,8 +29,8 @@ const products = [
     badgeColor: "#3BB77E",
   },
   {
-    id: 2,
-    image: "/product/bestsell/cashew.jpg",
+    id: 12,
+    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884141/acec553fd1f4f60d850639bbd40b34daa0f2b22b_x47ryt.jpg",
     company: "Hodo Foods",
     name: "Angie’s Boomchickapop Sweet and womnies",
     price: 238.85,
@@ -40,8 +40,8 @@ const products = [
     badgeColor: "#67BCEE",
   },
   {
-    id: 3,
-    image: "/product/bestsell/veggie.jpg",
+    id: 13,
+    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884173/d668a514668090fd83bc70a4b89901e418f2668d_mvebml.jpg",
     company: "Hodo Foods",
     name: "Foster Farms Takeout Crispy Classic",
     price: 238.85,
@@ -51,8 +51,8 @@ const products = [
     badgeColor: "#F59758",
   },
   {
-    id: 4,
-    image: "/product/bestsell/veggie.jpg",
+    id: 14,
+    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884208/5700b33147f231860ac4a80cb5e875f0a4c9dd61_mzrlau.jpg",
     company: "Hodo Foods",
     name: "Foster Farms Takeout Crispy Classic",
     price: 238.85,

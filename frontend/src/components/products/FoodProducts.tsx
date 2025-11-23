@@ -29,21 +29,21 @@ export default function FoodProducts() {
         const cached = localStorage.getItem(CACHE_KEY);
 
         if (cached) {
-          const parsed = JSON.parse(cached);
+        const parsed = JSON.parse(cached);
+        const allProducts: Product[] = parsed.data;
 
-          // 使用缓存
-          if (Date.now() - parsed.timestamp < CACHE_DURATION) {
-            setProducts(parsed.data);
-            setLoading(false);
-            return;
-          }
+        if (Date.now() - parsed.timestamp < CACHE_DURATION) {
+          setProducts(allProducts.slice(0, 10)); // ⭐ show only 10
+          setLoading(false);
+          return;
         }
+      }
 
         // 2️⃣ Fetch from API
         const res = await fetchProducts();
         const freshData = res.data as Product[];
 
-        setProducts(freshData);
+        setProducts(freshData.slice(0, 10)); // ⭐ show only 10
 
         // Save to local storage
         localStorage.setItem(
@@ -70,7 +70,7 @@ export default function FoodProducts() {
           Popular Products
         </h3>
 
-        <ul className="font-quicksand px-6 text-[#253D4E] flex text-[12px] gap-2 font-semibold">
+        <ul className="font-quicksand px-6 text-[#253D4E] flex text-[12px] gap-2 font-semibold -mr-4">
           <li className="text-[#3BB77E]">All</li>
           <li>Milk & Diaries</li>
           <li>Coffes & Teas</li>
@@ -81,7 +81,7 @@ export default function FoodProducts() {
         </ul>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 -mr-5">
         {loading
           ? //  🔵 Skeleton Loader —
             Array.from({ length: 10 }).map((_, idx) => (
