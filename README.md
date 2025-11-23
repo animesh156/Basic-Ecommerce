@@ -3,13 +3,13 @@
 A fully responsive, modern ecommerce web application featuring:
 
 - 🛒 Product browsing  
+- 🛍️ Add-to-cart with Zustand  
 - 🔐 OTP-based checkout verification  
-- 📦 Order placement  
-- 📨 Email notifications  
-- 🗄️ Neon PostgreSQL database  
-- ⚡ Fast API with Node.js + Express  
-- 🎨 Stylish responsive UI with React + TailwindCSS  
-- 🧰 **Zustand for global state management (cart items, UI state)**  
+- 📦 Order placement into Neon PostgreSQL  
+- 📨 Email notifications after order  
+- ⚡ Fast Node.js + Express Backend  
+- 🎨 Beautiful UI built with React + TailwindCSS  
+- 🧰 **Zustand for global state management (cart items)**  
 
 ---
 
@@ -18,16 +18,96 @@ A fully responsive, modern ecommerce web application featuring:
 ### **Frontend**
 - React.js  
 - TypeScript  
-- Tailwind CSS  
+- TailwindCSS  
 - React Icons  
-- **Zustand (state management for cart & global UI)**
+- **Zustand (Cart Store)**  
 
 ### **Backend**
 - Node.js  
 - Express.js  
 - TypeScript  
 - PostgreSQL (Neon)  
-- Nodemailer  
+- Nodemailer (Email Service)  
+
+---
+
+# 🔧 Installation & Setup Guide
+
+This section explains how to install and run both **Backend** and **Frontend**.
+
+---
+
+# ⚙️ Backend Setup (Node.js + Express + PostgreSQL)
+
+### 1️⃣ Navigate to backend folder
+```bash
+cd backend
+```
+
+### 2️⃣ Install dependencies
+```bash
+npm install
+```
+
+### 3️⃣ Create `.env` file
+```
+PORT=5000
+DATABASE_URL=your_neon_postgresql_url_here
+SMTP_USER=your_gmail_here@gmail.com
+SMTP_PASS=your_gmail_app_password
+FRONTEND_URL=http://localhost:5173
+```
+
+### 4️⃣ Start backend server
+```bash
+npm run dev
+```
+
+Backend runs at ➤ http://localhost:5000
+
+---
+
+# 🎨 Frontend Setup (React + Vite + Tailwind + Zustand)
+
+### 1️⃣ Navigate to frontend folder
+```bash
+cd frontend
+```
+
+### 2️⃣ Install dependencies
+```bash
+npm install
+```
+
+### 3️⃣ Create `.env` file
+```
+VITE_BACKEND_URL=http://localhost:5000/api
+```
+
+### 4️⃣ Start frontend dev server
+```bash
+npm run dev
+```
+
+Frontend runs at ➤ http://localhost:5173
+
+---
+
+# 🧰 Required Global Tools
+
+### ✔ Node.js (18+ recommended)
+Check version:
+```bash
+node -v
+```
+
+### ✔ npm or yarn
+```bash
+npm -v
+```
+
+### ✔ PostgreSQL or Neon Cloud
+Neon → https://neon.tech/
 
 ---
 
@@ -50,7 +130,7 @@ frontend/
  ├── src/
  │   ├── components/
  │   ├── pages/
- │   ├── features/store      <-- Zustand cart store here
+ │   ├── features/store
  │   ├── assets/
  │   └── App.tsx
  ├── index.html
@@ -60,117 +140,61 @@ frontend/
 
 ---
 
-## 🛠️ Backend Setup
+# 🔄 **App Flow (User Journey)**
 
-### 1️⃣ Install dependencies
-```bash
-cd backend
-npm install
-```
+## **1️⃣ Browse Products**
+- Products load from backend (cached in LocalStorage)
 
-### 2️⃣ Create `.env` file
+## **2️⃣ Add Item to Cart**
+- Stores item in Zustand cart store
 
-```
-DATABASE_URL=postgresql://your-neon-url?sslmode=require
-SMTP_USER=youremail@gmail.com
-SMTP_PASS=your-email-app-password
-PORT=5000
-```
+## **3️⃣ Checkout Page**
+- User enters email → OTP is sent automatically
 
-### 3️⃣ Start in development
-```bash
-npm run dev
-```
+## **4️⃣ Verify OTP**
+- User enters OTP  
+- If correct → Enable "Place Order" button  
 
----
+## **5️⃣ Place Order**
+- Order stored in PostgreSQL  
+- Confirmation email sent with order details  
 
-## 🍽️ Frontend Setup
-
-### Install dependencies
-```bash
-cd frontend
-npm install
-```
-
-### Run development server
-```bash
-npm run dev
-```
-
----
-
-## 📦 Key Features
-
-### 🔐 OTP Verification System  
-Before checkout, users verify their identity using OTP email authentication.
-
-### 🛒 Product Display  
-Clean grid-based layout with images, price, rating, and category filters.
-
-### 🧰 **Zustand Cart Management**  
-- Add/Clears items from cart    
-- Global store accessible throughout the app  
-- Lightweight alternative to Redux  
-
-### 📃 Detailed Product Page  
-Detailed descriptions with add-to-cart functionality.
-
-### 📬 Order Placement  
-Order is stored in PostgreSQL + confirmation email sent.
-
-### ⭐ Responsive Footer  
-- Brand info + logo  
-- Company links  
-- Categories  
-- Newsletter subscription  
-- Social icons  
-- 5 image icons grid  
+## **6️⃣ Success Page**
+- User sees confirmation message  
 
 ---
 
 ## 🧪 API Endpoints
 
-### **OTP Routes**
-| Method | Route | Description |
-|--------|--------|-------------|
-| POST | `/otp/send-otp` | Sends OTP email |
-| POST | `/otp/verify` | Verifies OTP |
+### **OTP**
+- POST `/otp/send-otp`
+- POST `/otp/verify`
 
-### **Order Routes**
-| Method | Route | Description |
-|--------|--------|-------------|
-| POST | `/order/place-order` | Stores order in DB + sends email |
+### **Orders**
+- POST `/order/place-order`
 
 ---
 
-## 🗄️ Database (Neon PostgreSQL)
+## 🗄️ Database Schema (Neon PostgreSQL)
 
-Tables auto-created:
+### `otp` Table  
+- id  
+- email  
+- otp  
+- expires_at  
 
-### `otp` Table
-| Column | Type |
-|--------|------|
-| id | SERIAL |
-| email | VARCHAR |
-| otp | VARCHAR |
-| expires_at | TIMESTAMP |
-
-### `orders` Table
-| Column | Type |
-|--------|------|
-| id | SERIAL |
-| email | VARCHAR |
-| items | JSONB |
-| amount | INT |
-| created_at | TIMESTAMP |
+### `orders` Table  
+- id  
+- email  
+- items   
+- amount  
+- created_at  
 
 ---
 
-## 🎨 UI Features
-- Responsive design with TailwindCSS  
-- Modern and clean look  
-- Footer with search bar, icons, and image grid  
-- Smooth state-driven cart interactions (Zustand)  
-
----
-
+## 🎨 UI Features  
+- Responsive  
+- Product grid  
+- Detailed product page  
+- Zustand cart  
+- OTP checkout  
