@@ -89,7 +89,9 @@ export default function Checkout() {
 
       <div className="bg-[#F53E32] py-4 flex justify-between  text-white">
         {/* To make first char UpperCase */}
-        <h2 className="ml-40">{currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}</h2>
+        <h2 className="ml-40">
+          {currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}
+        </h2>
 
         <div className="mr-36">
           <p>Home - {currentRoute}</p>

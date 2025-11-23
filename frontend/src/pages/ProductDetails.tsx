@@ -346,7 +346,7 @@ export default function ProductDetails() {
         </div>
 
         {/* POPULAR PRODUCTS */}
-        <div className="mt-16 px-12">
+        <div className="mt-16 ">
           <div className="w-[480px] m-auto ">
             <h2 className="text-[#2B2B2D] text-center font-bold text-[28px]">
               Popular Products
@@ -360,7 +360,7 @@ export default function ProductDetails() {
           </div>
 
           {/* CARDS POPULAR */}
-          <div className="grid grid-cols-4 gap-2 mt-6">
+          <div className="flex space-x-6  mt-6">
             {popularProducts.map((item) => (
               <PopularProductCard key={item.id} {...item} />
             ))}
