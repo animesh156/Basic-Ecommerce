@@ -6,6 +6,7 @@ import DealOfTheDay from "../components/products/DealOfTheDay";
 import FooterImg from "../components/footer/FooterImg";
 import FoodProducts from "../components/products/FoodProducts";
 
+// Footer benefit data
 const data = [
   {
     id: 1,
@@ -41,34 +42,55 @@ const data = [
 
 export default function Home() {
 
-   useEffect(() => {
-        window.scrollTo(0, 0);
-      }, []);
+  // Scroll to top when Home page mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="mt-2">
-      {/* Hero Section */}
+
+      {/* ============================
+          HERO SECTION
+      =============================*/}
       <Hero />
 
-      {/* Products Section */}
+      {/* ============================
+          MAIN PRODUCTS SECTION
+      =============================*/}
       <section className="py-10 space-y-5">
+        {/* Featured products slider */}
         <FeatureProducts />
+
+        {/* Food & grocery products */}
         <FoodProducts />
+
+        {/* Daily best-selling items */}
         <DailyBestSell />
+
+        {/* Deal of the day section */}
         <DealOfTheDay />
       </section>
 
+      {/* ============================
+          FOOTER IMAGE + BENEFITS
+      =============================*/}
       <section className="mb-11">
+        
+        {/* Promotional footer image */}
         <FooterImg />
 
-        <div className="max-w-6xl mx-auto mt-8 grid grid-cols-5 ">
+        {/* Footer highlights / benefits */}
+        <div className="max-w-6xl mx-auto mt-8 grid grid-cols-5 gap-4">
           {data.map((item) => (
             <div
               key={item.id}
               className="bg-[#F4F6FA] flex items-center gap-3 p-3 rounded-md"
             >
-              <img src={item.icon} className="w-10 h-10" />
+              {/* Icon */}
+              <img src={item.icon} className="w-10 h-10" alt={item.title} />
 
+              {/* Text content */}
               <div>
                 <h3 className="text-[12px] font-semibold font-quicksand text-[#253D4E]">
                   {item.title}
@@ -81,6 +103,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+
     </div>
   );
 }

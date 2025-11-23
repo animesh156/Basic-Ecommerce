@@ -141,7 +141,9 @@ export default function Filters() {
       </div>
 
       {/* FILTER BUTTON */}
-      <button className="bg-[#F53E32] font-normal text-[14px] px-5 py-2 text-white">Filter</button>
+      <button className="bg-[#F53E32] font-normal text-[14px] px-5 py-2 text-white">
+        Filter
+      </button>
 
       {/* PRODUCT TAGS */}
       <div>

@@ -20,15 +20,17 @@ export default function DealsCard({
   rating,
 }: DealsCardProps) {
   return (
+    // Parent container for each deal card
     <div className="relative w-[350px] h-[420px] rounded-xl overflow-visible">
-      {/* Image */}
+
+      {/* Product Image */}
       <img
         src={image}
         alt={title}
         className="w-full h-64 object-cover rounded-xl"
       />
 
-      {/* Absolute Info Box - Half outside */}
+      {/* Floating info box (half outside image) */}
       <div
         className="
         absolute left-4.5
@@ -42,11 +44,12 @@ export default function DealsCard({
         w-56
       "
       >
-        <h3 className="text-[#253D4E]  font-quicksand font-bold text-[13px]">
+        {/* Product Title */}
+        <h3 className="text-[#253D4E] font-quicksand font-bold text-[13px]">
           {title}
         </h3>
 
-        {/* Rating */}
+        {/* Star Rating */}
         <div className="flex items-center gap-1 ">
           <FaStar className="text-[9px] text-yellow-400" />
           <span className="text-[#B6B6B6] text-[12px] font-lato">
@@ -54,25 +57,32 @@ export default function DealsCard({
           </span>
         </div>
 
+        {/* Company / Brand */}
         <p className="text-[#3BB77E] text-[12px] mt-1">
           <span className="text-[#7E7E7E]">By</span> {company}
         </p>
 
+        {/* Price + Button Row */}
         <div className="flex justify-between items-center">
+
+          {/* Price Section */}
           <div className="flex items-center gap-3 mt-2">
             <span className="text-[#3BB77E] font-semibold text-[15px]">
               ${price}
             </span>
+
+            {/* Original Price (Striked Through) */}
             <span className="text-gray-400 text-[15px] line-through">
               ${originalPrice}
             </span>
           </div>
 
-          {/* Button with Cart Icon */}
+          {/* Add to Cart Button */}
           <button className="mt-3 flex items-center gap-2 bg-[#F53E32] text-white px-4 py-2 rounded-md text-sm font-mono transition">
             <FaShoppingCart className="text-[12px]" />
             {buttonText}
           </button>
+
         </div>
       </div>
     </div>

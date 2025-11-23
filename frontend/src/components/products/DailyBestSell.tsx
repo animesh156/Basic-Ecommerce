@@ -19,7 +19,8 @@ const dummyProduct: Product[] = [
 const products = [
   {
     id: 11,
-    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763730373/5e54ca86f58be985a7ea1082b7da9261aef20407_j1cryh.jpg",
+    image:
+      "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763730373/5e54ca86f58be985a7ea1082b7da9261aef20407_j1cryh.jpg",
     company: "Hodo Foods",
     name: "All Natural Italian-Style Chicken Meatballs",
     price: 238.85,
@@ -30,7 +31,8 @@ const products = [
   },
   {
     id: 12,
-    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884141/acec553fd1f4f60d850639bbd40b34daa0f2b22b_x47ryt.jpg",
+    image:
+      "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884141/acec553fd1f4f60d850639bbd40b34daa0f2b22b_x47ryt.jpg",
     company: "Hodo Foods",
     name: "Angie’s Boomchickapop Sweet and womnies",
     price: 238.85,
@@ -41,7 +43,8 @@ const products = [
   },
   {
     id: 13,
-    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884173/d668a514668090fd83bc70a4b89901e418f2668d_mvebml.jpg",
+    image:
+      "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884173/d668a514668090fd83bc70a4b89901e418f2668d_mvebml.jpg",
     company: "Hodo Foods",
     name: "Foster Farms Takeout Crispy Classic",
     price: 238.85,
@@ -52,7 +55,8 @@ const products = [
   },
   {
     id: 14,
-    image: "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884208/5700b33147f231860ac4a80cb5e875f0a4c9dd61_mzrlau.jpg",
+    image:
+      "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763884208/5700b33147f231860ac4a80cb5e875f0a4c9dd61_mzrlau.jpg",
     company: "Hodo Foods",
     name: "Foster Farms Takeout Crispy Classic",
     price: 238.85,
@@ -66,7 +70,6 @@ const products = [
 export default function DailyBestSell() {
   return (
     <div className="px-28 mt-10">
-
       <div className="flex justify-between">
         <h3 className="text-[#253D4E] text-[22px] font-bold font-quicksand">
           Daily Best Sells
@@ -91,7 +94,7 @@ export default function DailyBestSell() {
           left={30}
           spaceY="space-y-8"
         />
-          {/* rest item cards */}
+        {/* rest item cards */}
         {products.map((item) => (
           <ItemCard type={""} key={item.id} {...item} />
         ))}
