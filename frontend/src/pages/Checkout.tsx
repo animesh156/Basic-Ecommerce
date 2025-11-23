@@ -19,9 +19,8 @@ export default function Checkout() {
   const currentRoute = location.pathname.substring(1); // remvoes first "/"
 
   useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
-  
+    window.scrollTo(0, 0);
+  }, []);
 
   // Zustand cart store
   const cartItems = useCartStore((state) => state.cart);
@@ -88,18 +87,18 @@ export default function Checkout() {
     <div>
       {/* RED DIV CONTAINS INFO ABOUT ROUTE INFO FROM HOME TO CURRENT ROUTE */}
 
-      <div className="bg-[#F53E32] py-4 flex justify-around text-white">
+      <div className="bg-[#F53E32] py-4 flex justify-between  text-white">
         {/* To make first char UpperCase */}
-        <h2>{currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}</h2>
+        <h2 className="ml-40">{currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}</h2>
 
-        <div>
+        <div className="mr-36">
           <p>Home - {currentRoute}</p>
         </div>
       </div>
 
-      <div className="px-80 py-10">
+      <div className="px-36 py-10">
         {/* ROW 1 - TWO COLUMNS */}
-        <div className="grid grid-cols-1 md:grid-cols-2  mb-10">
+        <div className=" flex space-x-5  mb-10">
           {/* COLUMN 1 - SUBTOTAL + DELIVERY + PAYMENT */}
           <div className=" space-y-5">
             {/* SUBTOTAL BOX */}
@@ -331,9 +330,9 @@ export default function Checkout() {
           </div>
 
           {/* COLUMN 2 - CUSTOMER DETAILS & BILLING DETAILS */}
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {/* CUSTOMER DETAILS */}
-            <div className="border text-[#2B2B2D] w-[490px] font-semibold border-[#E9E9E9] h-[370px] space-y-3.5 p-4">
+            <div className="border text-[#2B2B2D] w-[730px] font-semibold border-[#E9E9E9] h-[370px] space-y-3.5 p-4 mr-20">
               <h3>Customer</h3>
               <p className="text-[10px] font-normal">Checkout Options</p>
 
@@ -383,7 +382,7 @@ export default function Checkout() {
             </div>
 
             {/* BILLING DETAILS */}
-            <div className="border  text-[#2B2B2D] w-[490px] font-semibold border-[#E9E9E9] h-[422px] space-y-3.5 p-4">
+            <div className="border  text-[#2B2B2D] w-[730px] font-semibold border-[#E9E9E9] h-[422px] space-y-3.5 p-4">
               <h3>Billing Details</h3>
               <p className="text-[10px] font-normal">Checkout Options</p>
 
@@ -503,7 +502,7 @@ export default function Checkout() {
             </div>
 
             {/* SUBMIT BUTTON */}
-            <div className="flex justify-end mt-2">
+            <div className="flex mr-20 justify-end mt-2">
               <button
                 type="submit"
                 onClick={handleOrder}

@@ -119,7 +119,7 @@ export default function ProductDetails() {
       quantity: quantity, // use selected quantity
       actualPrice: product.original_price,
     });
-    toast.success("Item added to Cart!")
+    toast.success("Item added to Cart!");
     setQuantity(1);
     navigate("/checkout");
   };
@@ -135,18 +135,20 @@ export default function ProductDetails() {
 
   return (
     <div>
-      <div className="bg-[#F53E32] py-4 flex justify-around  text-white">
+      <div className="bg-[#F53E32] py-4 flex justify-between  text-white">
         {/* To make first char UpperCase */}
-        <h2>{currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}</h2>
+        <h2 className="ml-40">
+          {currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1)}
+        </h2>
 
-        <div>
+        <div className="mr-32">
           <p>Home - {currentRoute}</p>
         </div>
       </div>
 
       {/* PRODUCT DETAILS */}
-      <div className="px-16 py-10">
-        <div className="flex gap-8">
+      <div className="px-36 py-10">
+        <div className="flex space-x-6">
           {/* COLUMN 1 → FILTER */}
           <div className="col-span-1">
             <Filters />
@@ -154,9 +156,9 @@ export default function ProductDetails() {
 
           {/* COLUMN 2 */}
           <div className="flex-col">
-            <div className="flex justify-evenly space-x-20 space-y-6">
+            <div className="flex justify-evenly space-x-11 space-y-6">
               {/* COL 1 - PRODUCT IMAGE */}
-              <div className="bg-[#F7F7F8] w-[460px] h-[510px] border border-[#E9E9E9] flex items-center justify-center p-6 rounded-md">
+              <div className="bg-[#F7F7F8] w-[380px] h-[510px] border border-[#E9E9E9] flex items-center justify-center p-6 rounded-md">
                 <img
                   src={product.image}
                   alt={product.name}
@@ -165,7 +167,7 @@ export default function ProductDetails() {
               </div>
 
               {/* COL 2 - PRODUCT DETAILS */}
-              <div className="-mt-4 flex flex-col  max-w-[480px]">
+              <div className="-mt-4 flex flex-col  w-[370px]">
                 <div className="border-b-[#E9E9E9] border-b py-4.5">
                   <h2 className="text-[19px] font-normal text-[#2B2B2D]">
                     {product.name}
@@ -225,12 +227,12 @@ export default function ProductDetails() {
                   </span>
                   <span className="mr-2">:</span>
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
                     {sizes.map((item) => (
                       <button
                         key={item}
                         onClick={() => setSelected(item)}
-                        className={`px-4 py-1 rounded-sm border text-sm cursor-pointer
+                        className={`px-2 py-1 rounded-sm border text-sm cursor-pointer
           ${
             selected === item
               ? "border-[#F53E32] bg-[#F53E32] text-white"

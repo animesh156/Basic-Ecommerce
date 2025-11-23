@@ -1,7 +1,12 @@
 import { useState } from "react";
 
 export default function Filters() {
-  const categories = ["Juice & Drinks", "Dairy & Milk", "Snack & Spice"];
+  const categories = [
+  { name: "Juice & Drinks", quantity: 20 },
+  { name: "Dairy & Milk", quantity: 54 },
+  { name: "Snack & Spice", quantity: 64 }
+];
+
 
   const tags = [
     "Vegetables",
@@ -31,33 +36,40 @@ export default function Filters() {
           Product Category
         </h3>
 
-        <div className="flex flex-col gap-2">
-          {categories.map((cat) => {
-            const checked = selectedCategories.includes(cat);
+       <div className="flex flex-col gap-2">
+  {categories.map((cat) => {
+    const checked = selectedCategories.includes(cat.name);
 
-            return (
-              <label
-                key={cat}
-                className="flex items-center mt-2.5 gap-2 cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  checked={checked}
-                  onChange={() => toggleCategory(cat)}
-                  className="w-4 h-4 border-[#DDDDDD] border accent-[#3BB77E]"
-                />
+    return (
+      <label
+        key={cat.name}
+        className="flex items-center justify-between mt-2.5 cursor-pointer"
+      >
+        {/* LEFT SIDE: Checkbox + Name */}
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={() => toggleCategory(cat.name)}
+            className="w-4 h-4 border-[#DDDDDD] border accent-[#3BB77E]"
+          />
 
-                <span
-                  className={`text-sm font-normal ${
-                    checked ? "text-[#3BB77E]" : "text-[#7A7A7A]"
-                  }`}
-                >
-                  {cat}
-                </span>
-              </label>
-            );
-          })}
+          <span
+            className={`text-sm font-normal ${
+              checked ? "text-[#3BB77E]" : "text-[#7A7A7A]"
+            }`}
+          >
+            {cat.name}
+          </span>
         </div>
+
+        {/* RIGHT SIDE: Quantity */}
+        <span className="text-sm text-[#7A7A7A]">[{cat.quantity}]</span>
+      </label>
+    );
+  })}
+</div>
+
       </div>
 
       {/* PRICE SLIDER */}
