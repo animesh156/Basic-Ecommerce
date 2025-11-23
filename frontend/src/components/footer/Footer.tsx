@@ -8,15 +8,30 @@ import { IoLocationOutline } from "react-icons/io5";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#F7F7F8] py-12 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="bg-[#F7F7F8]  relative py-20 px-28">
+      {/* CHILLI ICON */}
+      <div className="absolute bottom-2 right-36">
+        <img src="/footer-icons/chilli.png" className="w-20" />
+      </div>
+
+      {/* TOMATO ICON */}
+      <div className="absolute -top-5 right-20">
+        <img src="/footer-icons/tomato-icon.png" className="w-10" />
+      </div>
+
+      {/* PEACH ICON */}
+      <div className="absolute top-1/3 -left-2">
+        <img src="/footer-icons/peach-icon.png" className="w-10" />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 ">
         {/* 1. Brand + Address */}
-        <div className="text-[#777777] text-sm space-y-3">
+        <div className="text-[#777777] text-sm space-y-4">
           <div className="flex flex-col gap-3 text-sm text-[#777777]">
             {/* Avatar + Brand Name */}
             <div className="flex items-center gap-3">
               <img
-                src="/avatar.png" 
+                src="/avatar.png"
                 alt="Foodzy Logo"
                 className="w-10 h-10 rounded-full object-cover"
               />
@@ -61,7 +76,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* 2. Company Links */}
-        <div>
+        <div className="ml-7">
           <h3 className="text-lg font-semibold mb-3">Company</h3>
           <ul className="space-y-2 text-[#777777] text-sm">
             <li>
@@ -86,7 +101,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* 3. Categories */}
-        <div>
+        <div className="-ml-7">
           <h3 className="text-lg font-semibold mb-3">Categories</h3>
           <ul className="space-y-2 text-[#777777] text-sm">
             <li>
@@ -111,7 +126,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* 4. Newsletter + Social Icons */}
-        <div>
+        <div className="-ml-20">
           <h3 className="text-lg font-semibold mb-3">
             Subscribe Our Newsletter
           </h3>
@@ -138,7 +153,7 @@ const Footer: React.FC = () => {
             </div>
 
             <div className="bg-white p-2  cursor-pointer">
-              <FaXTwitter className="" size={14} />
+              <img src="/footer-icons/social-icon.svg" />
             </div>
 
             <div className="bg-white p-2  cursor-pointer">
@@ -162,10 +177,12 @@ const Footer: React.FC = () => {
             ))}
           </div>
         </div>
+
+
       </div>
 
       {/* Bottom Section */}
-      <div className="border-t border-gray-300 mt-10 font-normal pt-6 text-center text-[14px] ">
+      <div className="border-t border-gray-300 mt-16 font-medium pt-6 -mb-10 text-center text-[14px] ">
         © {new Date().getFullYear()}{" "}
         <span className="text-[#F53E32]">Foodzy</span>, All rights reserved.
       </div>
