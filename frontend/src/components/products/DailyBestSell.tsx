@@ -65,7 +65,7 @@ const products = [
 
 export default function DailyBestSell() {
   return (
-    <div className="px-28 mt-5">
+    <div className="px-28 mt-10">
 
       <div className="flex justify-between">
         <h3 className="text-[#253D4E] text-[22px] font-bold font-quicksand">
@@ -79,12 +79,12 @@ export default function DailyBestSell() {
         </ul>
       </div>
 
-      <div className="mt-4 flex gap-8">
+      <div className="mt-4 flex gap-4">
         {/* Pass only the first product to BgImageCard */}
         <BgImageCard
           product={dummyProduct[0]} // Only the first product is passed here
-          width="200px"
-          height="330px"
+          width="320px"
+          height="360px"
           showArrow={true}
           textSize="text-20px"
           bottom={140}

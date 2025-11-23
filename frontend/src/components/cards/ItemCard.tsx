@@ -21,10 +21,9 @@ export default function ItemCard({
   originalPrice,
   rating,
   badgeColor,
-  type,
 }: ItemProps) {
   return (
-    <div className="w-[200px] rounded-xl border border-gray-100 overflow-hidden bg-white ">
+    <div className="w-[230px] rounded-xl border border-gray-100 overflow-hidden bg-white ">
       {/* Image Section */}
       <div className="relative">
         <img
@@ -43,41 +42,35 @@ export default function ItemCard({
       </div>
 
       {/* Content Section */}
-      <div className="p-3">
-        <p className="text-[#ADADAD] font-lato text-[10px]">{type}</p>
+      <div className="p-3 space-y-14">
+        <div className="flex-col">
+          <p className="text-[#ADADAD] font-lato text-[10px] ">{company}</p>
 
-        <h3 className="text-[#253D4E] font-quicksand font-bold text-sm mt-1">
-          {name}
-        </h3>
+          <h3 className="text-[#253D4E] font-quicksand font-bold text-sm mt-1">
+            {name}
+          </h3>
 
-        {/* Rating */}
-        <div className="flex items-center gap-1 ">
-          <FaStar className="text-[9px] text-yellow-400" />
-          <span className="text-[#B6B6B6] text-[12px] font-lato">
-            ({rating.toFixed(1)})
-          </span>
-        </div>
+          {/* Rating */}
+          <div className="flex items-center gap-1 ">
+            <FaStar className="text-[9px] text-yellow-400" />
+            <span className="text-[#B6B6B6] text-[12px] font-lato">
+              ({rating.toFixed(1)})
+            </span>
+          </div>
 
-        <p className="font-lato font-normal text-[11px] text-[#3BB77E]">
-          <span className="text-[#B6B6B6]">By</span> {company}
-        </p>
-
-        <div>
-          
-        </div>
-
-        {/* Pricing */}
-        <div className="space-x-2  font-quicksand">
-          <span className="text-[#3BB77E] text-[11px] font-bold ">
-            ${price}
-          </span>
-          <span className="text-[#ADADAD] text-[11px] font-bold text-sm line-through">
-            ${originalPrice}
-          </span>
+              {/* Pricing */}
+          <div className="space-x-2 mt-3 font-quicksand">
+            <span className="text-[#3BB77E] text-[11px] font-bold ">
+              ${price}
+            </span>
+            <span className="text-[#ADADAD] text-[11px] font-bold text-sm line-through">
+              ${originalPrice}
+            </span>
+          </div>
         </div>
 
         {/* Add to Cart Button */}
-        <button className="mt-9 w-full bg-[#F53E32] text-white py-2  text-[10px] font-semibold transition">
+        <button className=" -mb-8 w-full bg-[#F53E32] text-white py-2  text-[10px] font-semibold transition">
           Add to Cart
         </button>
       </div>

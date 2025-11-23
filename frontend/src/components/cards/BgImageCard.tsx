@@ -38,7 +38,7 @@ function BgImageCard({
   return (
     <div
       key={product.id}
-      className="relative rounded-md border border-white overflow-hidden"
+      className="relative rounded-lg border border-white overflow-hidden"
       style={{
         backgroundImage: `url(${product.image})`,
         backgroundSize: "cover",

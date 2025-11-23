@@ -3,7 +3,7 @@ import { FiSend } from "react-icons/fi";
 export default function FooterImg() {
   return (
     <div
-      className="max-w-6xl relative mx-auto h-[300px] bg-center bg-cover bg-no-repeat rounded-xl"
+      className="max-w-6xl -mt-5 relative mx-auto h-[300px] bg-center bg-cover bg-no-repeat rounded-xl"
       style={{
         backgroundImage: `url('/footer-icons/footer-bg.png')`,
       }}

@@ -27,7 +27,7 @@ const dummyProducts: Product[] = [
 
 const FeatureProducts: React.FC = () => {
   return (
-    <div className="flex justify-evenly px-20">
+    <div className="flex justify-evenly px-20 mt-7">
       {dummyProducts.map((product) => (
         <BgImageCard key={product.id} product={product} textColor="black" textSize="text-[12px]" />
       ))}

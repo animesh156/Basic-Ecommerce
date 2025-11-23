@@ -1,4 +1,5 @@
 import DealsCard from "../cards/DealsCard";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 export default function DealOfTheDay() {
   // Dummy deals array inside the same component
@@ -46,14 +47,15 @@ export default function DealOfTheDay() {
   ];
 
   return (
-    <section className="px-[108px]">
-
-      <div className="flex justify-between items-center mb-3">
+    <section className="px-[108px] mt-8">
+      <div className="flex justify-between items-center mb-5">
         <h3 className="text-[#253D4E] text-[22px] font-bold font-quicksand">
           Deals Of The Day
         </h3>
 
-        <p className="font-normal text-[#7E7E7E] text-[12px]">All deals</p>
+        <p className="font-normal flex items-center text-[#7E7E7E] text-[12px]">
+          All deals <MdOutlineKeyboardArrowRight size={18} />
+        </p>
       </div>
 
       <div className=" flex gap-6">
@@ -70,7 +72,6 @@ export default function DealOfTheDay() {
           />
         ))}
       </div>
-
     </section>
   );
 }

@@ -38,7 +38,7 @@ export default function DealsCard({
         px-4
         py-3
         rounded-xl 
-        shadow-lg 
+        shadow-md
         w-56
       "
       >
