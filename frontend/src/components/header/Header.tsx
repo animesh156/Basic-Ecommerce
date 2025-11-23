@@ -46,24 +46,25 @@ export default function Header() {
           </div>
 
           {/* Search Bar + Categories */}
-          <div className="flex items-center w-[580px] border border-[#64B496] rounded-md overflow-hidden h-12">
-            {/* Input */}
-            <input
-              type="text"
-              placeholder="Search For Items..."
-              className="flex-1 px-4 text-sm outline-none h-full flex items-center"
-            />
+        <div className="flex items-center w-[580px] rounded-md overflow-hidden h-12">
+  {/* Input */}
+  <input
+    type="text"
+    placeholder="Search For Items..."
+    className="flex-1 px-4 text-sm outline-none h-full border border-[#64B496] border-r-0 rounded-l-md"
+  />
 
-            {/* Category Button */}
-            <button className="px-4 text-[12px] flex items-center gap-1 h-full border-l border-l-[#64B496]">
-              All Categories <IoIosArrowDown />
-            </button>
+  {/* Category Button */}
+  <button className="px-4 text-[12px] flex items-center gap-1 h-full border border-[#64B496] border-l border-r-0">
+    All Categories <IoIosArrowDown />
+  </button>
 
-            {/* Search Button */}
-            <button className="w-14 bg-red-500 text-white hover:bg-red-600 flex items-center justify-center h-full">
-              <FiSearch className="text-lg" />
-            </button>
-          </div>
+  {/* Search Button */}
+  <button className="w-14 bg-red-500 text-white hover:bg-red-600 flex items-center justify-center h-full border border-red-500 rounded-r-md">
+    <FiSearch className="text-lg" />
+  </button>
+</div>
+
         </div>
 
         {/* Icons (Right) */}
