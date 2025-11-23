@@ -55,8 +55,8 @@ export default function Header() {
   />
 
   {/* Category Button */}
-  <button className="px-4 text-[12px] flex items-center gap-1 h-full border border-[#64B496] border-l border-r-0">
-    All Categories <IoIosArrowDown />
+  <button className="px-4 text-[12px] flex items-center gap-2 space-x-1.5 h-full border border-[#64B496] border-l border-r-0">
+    All Categories <IoIosArrowDown size={14} />
   </button>
 
   {/* Search Button */}
