@@ -29,15 +29,15 @@ export default function FoodProducts() {
         const cached = localStorage.getItem(CACHE_KEY);
 
         if (cached) {
-        const parsed = JSON.parse(cached);
-        const allProducts: Product[] = parsed.data;
+          const parsed = JSON.parse(cached);
+          const allProducts: Product[] = parsed.data;
 
-        if (Date.now() - parsed.timestamp < CACHE_DURATION) {
-          setProducts(allProducts.slice(0, 10)); // ⭐ show only 10
-          setLoading(false);
-          return;
+          if (Date.now() - parsed.timestamp < CACHE_DURATION) {
+            setProducts(allProducts.slice(0, 10)); // ⭐ show only 10
+            setLoading(false);
+            return;
+          }
         }
-      }
 
         // 2️⃣ Fetch from API
         const res = await fetchProducts();

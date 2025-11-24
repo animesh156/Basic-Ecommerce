@@ -1,5 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useCartStore } from "../../features/store/cartStore"; // your Zustand store
 
 type ItemProps = {
   image: string;
@@ -10,9 +12,8 @@ type ItemProps = {
   originalPrice: number;
   rating: number;
   badgeColor: string;
-  type: string;
   id: number;
-}; 
+};
 
 export default function ItemCard2({
   image,
@@ -23,12 +24,31 @@ export default function ItemCard2({
   originalPrice,
   rating,
   badgeColor,
-
   id,
 }: ItemProps) {
+  const addToCart = useCartStore((state) => state.addToCart);
+
+  /** Add to Cart without opening product page */
+  const handleAdd = (e: React.MouseEvent) => {
+    e.stopPropagation(); //  stops card click
+    e.preventDefault(); // stops Link navigation
+
+    addToCart({
+      id,
+      name,
+      price,
+      image, 
+      rating,
+      quantity: 1,
+      actualPrice: originalPrice,
+    });
+
+    toast.success("Item added to cart!");
+  };
+
   return (
     <Link to={`/product/${id}`}>
-      <div className="w-[200px]  rounded-xl border border-gray-100 overflow-hidden bg-white ">
+      <div className="w-[200px] rounded-xl border border-gray-100 overflow-hidden bg-white cursor-pointer">
         {/* Image Section */}
         <div className="relative h-36 p-4">
           <img
@@ -37,7 +57,7 @@ export default function ItemCard2({
             className="w-36 m-auto object-cover rounded-t-xl"
           />
 
-          {/* Badge Top Right */}
+          {/* Badge */}
           <div
             className="absolute -top-1 -left-1.5 w-14 text-center text-white rounded-b-lg px-2.5 py-1.5 text-[8px] font-semibold"
             style={{ backgroundColor: badgeColor }}
@@ -46,37 +66,38 @@ export default function ItemCard2({
           </div>
         </div>
 
-        {/* Content Section */}
+        {/* Content */}
         <div className="p-3 space-y-2">
-          <div>
-            <p className="text-[#ADADAD] font-lato text-[10px]">{company}</p>
+          <p className="text-[#ADADAD] font-lato text-[10px]">{company}</p>
 
-            <h3 className="text-[#253D4E] font-quicksand font-bold text-[12px] mt-1">
-              {name}
-            </h3>
+          <h3 className="text-[#253D4E] font-quicksand font-bold text-[12px]">
+            {name}
+          </h3>
 
-            {/* Rating */}
-            <div className="flex items-center gap-1 ">
-              <FaStar className="text-[9px] text-yellow-400" />
-              <span className="text-[#B6B6B6] text-[12px] font-lato">
-                ({rating.toFixed(1)})
-              </span>
-            </div>
+          {/* Rating */}
+          <div className="flex items-center gap-1">
+            <FaStar className="text-[9px] text-yellow-400" />
+            <span className="text-[#B6B6B6] text-[12px] font-lato">
+              ({rating.toFixed(1)})
+            </span>
           </div>
 
           <div className="flex items-center mt-5 justify-between">
-            {/* Pricing */}
-            <div className="space-x-2   font-quicksand">
-              <span className="text-[#3BB77E] text-[11px] font-bold ">
+            {/* Price */}
+            <div className="space-x-2 font-quicksand">
+              <span className="text-[#3BB77E] text-[11px] font-bold">
                 ${price}
               </span>
-              <span className="text-[#ADADAD] text-[11px] font-bold text-sm line-through">
+              <span className="text-[#ADADAD] text-[11px] font-bold line-through">
                 ${originalPrice}
               </span>
             </div>
 
-            {/* Add to Cart Button */}
-            <button className=" bg-[#F53E32] text-white py-1 px-3  text-[10px] font-semibold transition">
+            {/* ADD BUTTON — WORKS WITHOUT NAVIGATING */}
+            <button
+              onClick={handleAdd}
+              className="bg-[#F53E32] cursor-pointer text-white py-1 px-3 text-[10px] font-semibold rounded transition"
+            >
               Add
             </button>
           </div>

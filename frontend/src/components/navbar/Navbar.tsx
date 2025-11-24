@@ -1,10 +1,12 @@
 import { FiMenu } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 import { BsTelephone } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 type NavLink = {
   link: string;
   dropDown: boolean;
+  route: string;
 };
 
 type NavbarProps = {
@@ -12,6 +14,7 @@ type NavbarProps = {
 };
 
 export default function Navbar({ topLinks }: NavbarProps) {
+  const navigate = useNavigate();
   return (
     <div className="flex items-center justify-around py-3 shadow-md border-b border-b-[#e7dede]">
       <div className="border p-2 rounded-sm  border-[#E9E9E9] h-8 w-8">
@@ -23,6 +26,7 @@ export default function Navbar({ topLinks }: NavbarProps) {
         {topLinks.map((item) => (
           <button
             key={item.link}
+            onClick={() => navigate(item.route)}
             className="flex items-center gap-1 text-[12px] text-[#000000] font-medium font-poppins cursor-pointer"
           >
             {item.link}

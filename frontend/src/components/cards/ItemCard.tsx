@@ -1,5 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useCartStore } from "../../features/store/cartStore";
 
 type ItemProps = {
   image: string;
@@ -25,13 +27,32 @@ export default function ItemCard({
   badgeColor,
   id,
 }: ItemProps) {
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const navigate = useNavigate();
+
+  /** Add to Cart without opening product page */
+  const handleAdd = (e: React.MouseEvent) => {
+    e.stopPropagation(); //  stops card click
+    e.preventDefault(); // stops Link navigation
+
+    addToCart({
+      id,
+      name,
+      price,
+      image,
+      rating,
+      quantity: 1,
+      actualPrice: originalPrice,
+    });
+
+    toast.success("Item added to cart!");
+  };
 
   return (
     <div
       className="w-[230px] rounded-xl border border-gray-100 overflow-hidden bg-white cursor-pointer"
-      onClick={() => navigate(`/product/${id}`)}   // ⭐ FULL CARD CLICK
+      onClick={() => navigate(`/product/${id}`)} // ⭐ FULL CARD CLICK
     >
       {/* Image Section */}
       <div className="relative">
@@ -69,7 +90,9 @@ export default function ItemCard({
 
           {/* Pricing */}
           <div className="space-x-2 mt-3 font-quicksand">
-            <span className="text-[#3BB77E] text-[11px] font-bold">${price}</span>
+            <span className="text-[#3BB77E] text-[11px] font-bold">
+              ${price}
+            </span>
             <span className="text-[#ADADAD] text-[11px] font-bold line-through">
               ${originalPrice}
             </span>
@@ -78,11 +101,8 @@ export default function ItemCard({
 
         {/* Add to Cart Button */}
         <button
-          className="w-full bg-[#F53E32] text-white py-2 text-[10px] font-semibold transition"
-          onClick={(e) => {
-            e.stopPropagation(); // ⭐ Prevents card click navigation
-            navigate(`/product/${id}`);
-          }}
+          className="w-full cursor-pointer bg-[#F53E32] text-white py-2 text-[10px] font-semibold transition"
+          onClick={handleAdd}
         >
           Add to Cart
         </button>
