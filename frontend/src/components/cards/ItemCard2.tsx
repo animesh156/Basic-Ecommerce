@@ -13,6 +13,7 @@ type ItemProps = {
   rating: number;
   badgeColor: string;
   id: number;
+  type:string
 };
 
 export default function ItemCard2({
