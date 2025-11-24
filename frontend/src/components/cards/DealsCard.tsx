@@ -1,4 +1,7 @@
 import { FaStar, FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useCartStore } from "../../features/store/cartStore";
+import toast from "react-hot-toast";
 
 type DealsCardProps = {
   image: string;
@@ -8,6 +11,7 @@ type DealsCardProps = {
   originalPrice: number;
   buttonText?: string;
   rating: number;
+  id: number;
 };
 
 export default function DealsCard({
@@ -18,11 +22,35 @@ export default function DealsCard({
   originalPrice,
   buttonText = "Shop Now",
   rating,
+  id,
 }: DealsCardProps) {
-  return (
-    // Parent container for each deal card
-    <div className="relative w-[350px] h-[420px] rounded-xl overflow-visible">
+  const addToCart = useCartStore((state) => state.addToCart);
 
+  const navigate = useNavigate();
+
+   /** Add to Cart without opening product page */
+  const handleAdd = (e: React.MouseEvent) => {
+    e.stopPropagation(); //  stops card click
+    e.preventDefault(); // stops Link navigation
+
+    addToCart({
+      id,
+      name:title,
+      price,
+      image,
+      rating,
+      quantity: 1,
+      actualPrice: originalPrice,
+    });
+
+    toast.success("Item added to cart!");
+  };
+
+  return (
+    <div
+      onClick={() => navigate(`/product/${id}`)}
+      className="relative cursor-pointer w-[350px] h-[420px] rounded-xl overflow-visible"
+    >
       {/* Product Image */}
       <img
         src={image}
@@ -64,7 +92,6 @@ export default function DealsCard({
 
         {/* Price + Button Row */}
         <div className="flex justify-between items-center">
-
           {/* Price Section */}
           <div className="flex items-center gap-3 mt-2">
             <span className="text-[#3BB77E] font-semibold text-[15px]">
@@ -78,11 +105,12 @@ export default function DealsCard({
           </div>
 
           {/* Add to Cart Button */}
-          <button className="mt-3 flex items-center gap-2 bg-[#F53E32] text-white px-4 py-2 rounded-md text-sm font-mono transition">
+          <button
+           onClick={handleAdd}
+           className="mt-3 flex cursor-pointer items-center gap-2 bg-[#F53E32] text-white px-4 py-2 rounded-md text-sm font-mono transition">
             <FaShoppingCart className="text-[12px]" />
             {buttonText}
           </button>
-
         </div>
       </div>
     </div>

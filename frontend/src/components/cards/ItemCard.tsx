@@ -52,7 +52,7 @@ export default function ItemCard({
   return (
     <div
       className="w-[230px] rounded-xl border border-gray-100 overflow-hidden bg-white cursor-pointer"
-      onClick={() => navigate(`/product/${id}`)} // ⭐ FULL CARD CLICK
+      onClick={() => navigate(`/product/${id}`)} //
     >
       {/* Image Section */}
       <div className="relative">

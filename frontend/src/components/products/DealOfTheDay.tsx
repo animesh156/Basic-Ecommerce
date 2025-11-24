@@ -5,8 +5,9 @@ export default function DealOfTheDay() {
   // Dummy deals array inside the same component
   const deals = [
     {
-      id: 1,
-      image: "/product/deals/img1.png",
+      id: 15,
+      image:
+        "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763887156/40bac8dde33332c80dd86a0af57763998b1a2323_d4qiok.png",
       title: "Seeds of Change Organic Quinoa, Brown & Red Rice",
       company: "NestFood",
       price: 32.85,
@@ -15,8 +16,9 @@ export default function DealOfTheDay() {
       rating: 4.0,
     },
     {
-      id: 2,
-      image: "/product/deals/img2.png",
+      id: 16,
+      image:
+        "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763887303/48b065d6fc7ed4fe4d2483ce011a68b961bc4c38_eqja9g.png",
       title: "Perdue Simply Smart Organics Gluten Free",
       company: "Old El Paso",
       price: 24.85,
@@ -25,8 +27,9 @@ export default function DealOfTheDay() {
       rating: 4.0,
     },
     {
-      id: 3,
-      image: "/product/deals/img3.png",
+      id: 17,
+      image:
+        "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763887354/9a69f4084a83067779a40ef2edc4c0ccfc1b059c_wbr2wu.png",
       title: "Signature Wood-Fired Mushroom and Caramelized",
       company: "Progresso",
       price: 12.85,
@@ -35,8 +38,9 @@ export default function DealOfTheDay() {
       rating: 4.0,
     },
     {
-      id: 4,
-      image: "/product/deals/img4.png",
+      id: 18,
+      image:
+        "https://res.cloudinary.com/dcnqzrwkb/image/upload/v1763887394/69d8414b943718ee29e57f70956ef4bcafcf4bca_dwhpsy.png",
       title: "Simply Lemonade with Raspberry Juice",
       company: "Yoplait",
       price: 15.85,
@@ -69,6 +73,7 @@ export default function DealOfTheDay() {
             originalPrice={item.originalPrice}
             buttonText={item.buttonText}
             rating={item.rating}
+            id={item.id}
           />
         ))}
       </div>
